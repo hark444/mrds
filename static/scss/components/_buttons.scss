@@ -1,0 +1,54 @@
+.myr {
+    &__btn {
+        border-radius: .3125rem;
+        color: $white;
+        padding: .625rem 1.875rem;
+        font-size: .875rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        display: block;
+        margin: 1.25rem 0;
+        width: fit-content;
+    }
+
+    &__button-primary {
+        background-color: $primary;
+        border: 1px solid $primary;
+
+
+        &:hover {
+            color: $black;
+            background-color: $white;
+            border: 1px solid $secondary;
+        }
+    }
+
+    &__button-secondary {
+        background-color: $secondary;
+        border: 1px solid $secondary;
+
+        &:hover {
+            color: $black;
+            background-color: $white;
+            border: 1px solid $primary;
+        }
+
+        @include media-query(smphone) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__button-white {
+        background-color: $white;
+        border: 1px solid $primary;
+        margin: 0 auto;
+        color: $primary;
+
+        &:hover {
+            color: $black;
+            background-color: $primary;
+            border: 1px solid $primary;
+        }
+    }
+}

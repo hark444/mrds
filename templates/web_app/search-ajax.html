@@ -1,0 +1,27 @@
+       {% for r in result %}
+            <div class="myr__serach-row myr__mt2 myr__mb2">
+                <div class="myr__profile myr__dr-profile">
+                    <div class="myr__profile-content">
+                        <div class="myr__profile-image" style="width:10%">
+                            <img src="/media/profiles/{{r.profile_image_name}}" alt="">
+
+                        </div>
+                        <div class="myr__profile-text">
+                            <h3 class="myr__search-title">{{r.user_first_name}} {{r.user_last_name}} </h3>
+                            <p>{{r.specialization}}</p>
+                            <p>{{r.qualification}}</p>
+                            <p>{{r.total_experience}} Years of Practice</p>
+                             <p>{{r.title}}, {{r.city}}, {{r.state}} </p>
+
+                        </div>
+
+                    </div>
+                </div>
+<div class="myr__dr-btn" style="width: 50%; padding: 0 1%;">
+                        <textarea style="width:100%; height:10%" id="refer_notes_{{r.user_id}}">  </textarea>
+                        <a href="#?" class="myr__btn myr__button-primary myr__book-appointment" id="dr_patient_refer" style="float:right" onclick="dr_refer_patient({{r.user_id}})">Refer</a>
+                    </div>
+            </div>
+
+
+      {% endfor %}

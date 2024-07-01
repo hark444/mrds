@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% csrf_token %}
+<head>
+    {% include 'web_app/layout/head.html' %}
+
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'web_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__sub-title myr__mt2 myr__mb4">
+            <h2>My Cart</h2>
+        </div>
+        <div class="myr__table-cart">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Product and discription</th>
+                        <th scope="col">Appointment date and time</th>
+                        <!--<th scope="col">Price<br><small>(In Rs.)</small></th>-->
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"> <img src="/media/profiles/{{user_info.profile_image_name}}" alt="" width="40px"></th>
+                        <td>
+                              Appointment with {{user_info.user_first_name}} {{user_info.user_last_name}} <br>
+                                at {{user_info.title}}, {{user_info.address_1}}, {{user_info.address_2}}, {{user_info.city}}, {{user_info.state}}
+                                <span> </span>
+
+                        </td>
+                        <td>{{apt_date}}, {{apt_time}}</td>
+                        <!--<td>1200.00</td>-->
+                        <td>{{user_info.consultation_fees}}</td>
+
+                    </tr>
+
+                    <tr class="myr__cart-footer">
+
+
+                        <td width="100%" colspan="3" style="text-align:right">
+                            <table  width="100%">
+                                <tr>
+                                    <td>Sub Total</td>  <td><span id="sub_total"> {{user_info.consultation_fees}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Coupon</td> <td><input type="text" id="coupon" name="coupon"> <input type="button" id="coupon_apply" name="coupon_apply" value="Apply"> <span class="error-msg" id="error-msg" style="display: none;"></span></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Discount Amount </td>  <td><span id="disc_amount">0</span></td>
+                                </tr>
+                                <tr>
+                                    <td>After Discount Amount </td>  <td><span id="discounted_amount">{{user_info.consultation_fees}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>GST 18%</td> <td><span id="gst_amount">{{user_info.gst_amount}}</span></td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                    <tr class="myr__cart-footer">
+                        <td colspan="5" style="text-align: right;">
+                            <table>
+                                <tr style="border-top: 1px solid">
+                                    <td class="td-child">
+                                        <h4>Total:</h4>
+                                    </td>
+                                    <td>
+                                        <h4><span id="total_amount">{{user_info.total_amount}}</span></h4>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+         <div class="myr__form-row myr__cart-button">
+                <a href="#" id="proceed_to_payment" class="myr__btn myr__button-primary">Proceed to payment</a>
+            </div>
+
+        <form method="post" action="/payment" id="proceed_to_payment_form">
+
+
+            <input type="hidden" name="user_id" id="user_id" value="{{user_info.user_id}}">
+            <input type="hidden" name="patient_id" id="patient_id" value="{{user_data.id}}">
+            <input type="hidden" name="apt_date_time" id="apt_date_time" value="{{apt_date}} {{apt_time}}">
+
+            <input type="hidden" name="payment_amount" id="payment_amount" value="{{user_info.total_amount}}">
+        </form>
+
+    </main>
+
+    <!--Footer Section -->
+   {% include 'web_app/layout/footer.html' %}
+
+   {% include 'web_app/components/overlay-screen.html' %}
+
+
+    <!-- JS -->
+    {% include 'web_app/layout/footer-lib.html' %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+function update_payment(txn_id, status) {
+            $.ajax({
+        url: "/ajax/appointmentSave",
+        method: "POST",
+        data: {
+            patient_id: $('#user_id').val(),
+            appointment_datetime:$('#apt_date_time').val(),
+            csrfmiddlewaretoken:$( "input[name='csrfmiddlewaretoken']" ).val()
+        },
+         headers: {
+              "X-CSRFToken": "{{csrf_token}}"
+            },
+
+        success: function (data) {
+              console.log(data)
+                $.ajax({
+                    url: "/ajax/paymentSave",
+                    method: "POST",
+                    data: {
+                        payment_status: status,
+                        txn_id: txn_id.toString()
+                    },
+                    headers: {
+                              "X-CSRFToken": "{{csrf_token}}"
+                            }
+                 })
+            }
+     })
+}
+  var options = {
+    "key": "rzp_test_DFkB2TmUtFWNKc", // Enter the Key ID generated from the Dashboard
+    "amount": {{user_info.total_amount}},
+    "currency": "INR",
+    "description": "Acme Corp",
+    "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
+    "prefill":
+    {
+      "email": "gaurav.kumar@example.com",
+      "contact": +919900000000,
+    },
+config: {
+    display: {
+      blocks: {
+        banks: {
+          name: 'All payment methods',
+          instruments: [
+            {
+              method: 'upi'
+            },
+            {
+              method: 'card'
+            },
+            {
+                method: 'wallet'
+            },
+            {
+                method: 'netbanking'
+            }
+          ],
+        },
+      },
+      sequence: ['block.banks'],
+      preferences: {
+        show_default_blocks: false,
+      },
+    },
+  },
+
+    "handler": function (response) {
+      //alert(response.razorpay_payment_id);
+      order_id = response.razorpay_payment_id
+      update_payment(order_id, "paid" )
+      window.location.href = "/thank-you/"+order_id;
+    },
+    "modal": {
+      "ondismiss": function () {
+        if (confirm("Are you sure, you want to close the form?")) {
+          txt = "You pressed OK!";
+          console.log("Checkout form closed by the user");
+        } else {
+          txt = "You pressed Cancel!";
+          console.log("Complete the Payment")
+        }
+      }
+    }
+  };
+
+  document.getElementById('proceed_to_payment').onclick = function (e) {
+    $.ajax({
+            url: '/ajax/rzp',
+            data: {},
+            dataType: 'json',
+            method: 'post',
+            success: function (data) {
+                options.amount = data.amount*100
+                if (data.amount==0){
+                    update_payment('free', "paid" )
+                    window.location.href = "/thank-you/free";
+                }
+                else{
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+                }
+            }
+        });
+
+
+  }
+</script>
+
+</body>
+
+</html>

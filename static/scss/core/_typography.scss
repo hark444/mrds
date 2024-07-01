@@ -1,0 +1,28 @@
+.myr {
+    &__title {
+        h4 {
+            @include font-style(18, 24, 500, normal);
+            font-family: $font-primary;
+        }
+
+        h5 {
+            @include font-style(16, 24, 600, normal);
+            font-family: $font-primary;
+        }
+
+        h6 {
+            @include font-style(16, 24, 700, normal);
+            font-family: $font-primary;
+        }
+
+
+    }
+
+    &__para {
+        @include font-style(14, 23, 400, normal);
+    }
+
+    &__h1-head {
+        @include font-style (36, 49, 600, normal);
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include  'admin_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+     {% include  'admin_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+      <div>
+          <div><h3> List of Coupons</h3>
+              <a href="#" class="myr__btn myr__button-primary myr__book-appointment" id="couponId">Add Coupons</a>
+          </div>
+              {% if coupons %}
+         <table class="styled-table" id="styled-table">
+              <thead>
+              <tr>
+                  <th>Coupon Name</th>
+                  <th>Coupon Code</th>
+                  <th>Coupon Value</th>
+                  <th>Coupon Description</th>
+                  <th>Coupon Status</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+            {% for coupon in coupons %}
+            <tr>
+                  <td>{{coupon.coupon_name}}</td>
+                  <td>{{coupon.coupon_code}}</td>
+                  <td>{{coupon.coupon_value}}</td>
+                  <td>{{coupon.coupon_description}}</td>
+                 <td>{% if coupon.is_active == 1 %} Active {% else %} Deactive {% endif %} </td>
+                   <td>
+
+
+                       {% if coupon.is_active == 1 %}
+
+                                <!-- Deactivate link -->
+                                <a href="#" id="deactivatecoupon" data-coupon-id="{{ coupon_id }}" onclick="confirmAndDeactivate({{ coupon.coupon_id }})">Deactivate</a>
+
+                       {% else %}
+
+                                <!-- Activate link -->
+                                <a href="#" id="activatecoupon" data-coupon-id="{{ coupon_id }}" onclick="confirmAndActivate({{ coupon.coupon_id }})">Activate</a>
+                            
+                       {% endif %}
+
+                   </td>
+            </tr>
+
+            {% endfor %}
+
+              </tbody>
+          </table>
+        {% else %}
+          <p>Sorry, no result found!</p>
+          {% endif %}
+      </div>
+
+
+<!--         Show Sign in Overlay-->
+<div class="myr__overlay hidden" id="CouponBox" style="display: none">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'admin_app/AddCoupons.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'admin_app/layout/footer.html' %}
+
+    <!-- JS -->
+     {% include  'admin_app/layout/footer-lib.html' %}
+</body>
+
+</html>

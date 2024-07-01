@@ -1,0 +1,50 @@
+{% load static %}
+
+<div class="myr__header__wrap myr__sticky">
+    <header class="myr__header" id="myr__header" role="header">
+        <nav class="myr__nav" role="Navigation">
+            <div class="myr__nav-left">
+                <div class="myr__header-logo">
+                    <a href="/admin">
+                        <picture>
+                            <source media="(max-width:465px)" srcset="{% static 'images/pm-logo-stick.svg' %}">
+                            <img src="{% static 'images/pm_logo.svg' %}" alt="Physico Mitra">
+                        </picture>
+                    </a>
+                </div>
+                {% if 'id' in user_data  %}
+                <div class="myr__nav-wrap">
+                    <ul>
+                        <li><a href="/admin/dashboard" class="active">Dashboard</a></li>
+                        <li><a href="/admin/doctor">Doctors</a></li>
+                        <li><a href="/admin/pt">Physiotherapists</a></li>
+                        <li><a href="/admin/patient">Patients</a></li>
+                        <li><a href="/admin/referrals">Referrals</a></li>
+                        <li><a href="/admin/coupons">Coupons</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="myr__nav-right">
+                {% if 'id' not in user_data  %}
+                <div class="myr__login-mobile"><a href="#" id="loginOverlay" class="myr__btn myr__button-white">Login / Sign up</a></div>
+                {% else %}
+                <div class="myr__user pos-rel">
+                    <strong>Welcome, </strong><span>{{user_data.name}} <em class="bi bi-chevron-right"></em></span>
+
+                    <div class="myr__logout">
+                        <a href="/admin/login"> <em class="bi bi-arrow-right"></em> Logout</a>
+                    </div>
+                </div>
+                <div class="myr__login-icon myr__lg-hidden myr__md-hidden myr__sm-hidden"><a href="#" class="myr__btn1"><em class="bi bi-person-bounding-box"></em></a></div>
+                {% endif %}
+            </div>
+
+            <div class="myr__nav-humburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<a name="top" id="top"></a>

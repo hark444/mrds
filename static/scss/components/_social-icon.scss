@@ -1,0 +1,14 @@
+.myr{
+    &__social-icons {
+        a {
+            font-size: 1.5rem;
+            margin: .3125rem .625rem;
+            display: inline-block;
+            color: $white;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }   
+}

@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'web_app/layout/header.html' %}
+    <div class="myr__banner-color">
+    </div>
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__sub-title myr__mt2 myr__mb4">
+            <h2>My Cart</h2>
+        </div>
+
+        <form class="myr__form myr__mt4 myr__cart-form">
+            <div class="myr__form-row">
+                <div class="myr__form-block">
+                    <label for="">Email</label>
+                    <input type="text" name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="myr__form-block">
+                    <label for="">Mobile</label>
+                    <input type="text">
+                    <button class="myr__btn myr__button-primary">Re-send OTP</button>
+                </div>
+            </div>
+            <div class="myr__form-row">
+                <div class="myr__form-block">
+                    <label for="">First Name</label>
+                    <input type="text" name="fname" placeholder="Enter your first name">
+                </div>
+
+                <div class="myr__form-block">
+                    <label for="">Last Name</label>
+                    <input type="text" name="lname" placeholder="Enter your last name">
+                </div>
+            </div>
+            <div class="myr__form-row">
+                <div class="myr__form-block">
+                    <label for="">Address</label>
+                    <input type="text" name="address" placeholder="Enter your address">
+                </div>
+            </div>
+               <div id="payment-form"></div>
+        </form>
+    </main>
+
+    <!--Footer Section -->
+   {% include 'web_app/layout/footer.html' %}
+   {% include 'web_app/components/overlay-screen.html' %}
+
+    <!-- JS -->
+    {% include 'web_app/layout/footer-lib.html' %}
+    <script src="https://sdk.cashfree.com/js/ui/2.0.0/cashfree.sandbox.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+let paymentSessionId = "{{pay_data}}";
+const paymentDom = document.getElementById("payment-form");
+const success = function(data) {
+    if (data.order && data.order.status == "PAID") {
+     data = {
+                  "order_id": data.order.orderId,
+
+                }
+        $.ajax({
+            url: "/checkstatus",
+            method: 'post',
+            data: data,
+            dataType: 'json',
+
+            success: function(result) {
+                if (result.order_status == "PAID") {
+                    alert("Order PAID");
+                }
+            },
+        });
+    } else {
+        //order is still active
+        alert("Order is ACTIVE")
+    }
+}
+let failure = function(data) {
+    alert(data.order.errorText)
+}
+
+
+    const dropConfig = {
+        "components": [
+            "order-details",
+            "card",
+            "netbanking",
+            "app",
+            "upi"
+        ],
+        "onSuccess": success,
+        "onFailure": failure,
+        "style": {
+            "backgroundColor": "#ffffff",
+            "color": "#11385b",
+            "fontFamily": "Lato",
+            "fontSize": "14px",
+            "errorColor": "#ff0000",
+            "theme": "light", //(or dark)
+        }
+    }
+
+     if (paymentSessionId == "") {
+        $.ajax({
+            url: "fetchtoken.php",
+            success: function(result) {
+                paymentSessionId = result["payment_session_id"];
+                const cashfree = new Cashfree(paymentSessionId);
+                cashfree.drop(paymentDom, dropConfig);
+            },
+        });
+    } else {
+        const cashfree = new Cashfree(paymentSessionId);
+        cashfree.drop(paymentDom, dropConfig);
+    }
+
+<!--     const cashfree = new Cashfree(paymentSessionId);-->
+<!--        cashfree.drop(paymentDom, dropConfig);-->
+</script>
+</body>
+
+</html>

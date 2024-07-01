@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__row-container myr__flex-md-dir">
+            <div class="myr__col-sidebar myr__sm-hidden myr__order-md-1">
+               {% include 'commonpagedetails/sidebar-1.html' %}
+            </div>
+            <div class="myr__col-left">
+                {% include 'commonpagedetails/center.html' %}
+            </div>
+            <div class="myr__col-sidebar">
+                 {% include 'commonpagedetails/sidebar.html' %}
+            </div>
+        </div>
+
+    </main>
+
+    <!--Footer Section -->
+    <!--Footer Section -->
+    {% include 'layout/footer.html' %}
+    {% include 'components/overlay-screen.html' %}
+
+    <!-- JS -->
+    {% include 'layout/footer-lib.html' %}
+</body>
+
+</html>

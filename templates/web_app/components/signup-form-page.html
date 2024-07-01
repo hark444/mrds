@@ -1,0 +1,88 @@
+<style>
+    .myr__signup-wrapper {
+       width:100%;
+    }
+    .error1 {
+      color: red;
+      font-size: 12px;
+    }
+
+    .success {
+      border: 1px solid #ccc;
+    }
+
+     .error {
+      border: 1px solid red;
+    }
+
+    .myr__signup-wrapper {
+      width: 100%;
+    }
+    
+    .required::after {
+    content: " *";
+    color: red;
+}
+
+</style>
+<div class="myr__signup-wrapper">
+    <h3>Hello! patient, please register here</h3>
+        <div class="myr__form myr__mt4">
+        
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label class="required" for="email">Email Address</label>
+            <input type="text" name="email" id="email_address"  value="{{data.email}}" placeholder="Please enter your email address" required>
+            <span class="error-msg" style="display: none;"></span>
+        </div>
+        
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label class="required" for="fname">First Name</label>
+            <input type="text" name="fname" id="first_name"  value="{{data.first_name}}" placeholder="Please enter your First Name" required>
+            <span class="error-msg" style="display: none;"></span>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label class="required" for="lname">Last Name</label>
+            <input type="text" name="lname"  id="last_name"  value="{{data.last_name}}" placeholder="Please enter your Last Name" required>
+            <span class="error-msg" style="display: none;"></span>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label class="required" for="mobile">Mobile</label>
+            <input type="text" name="mobile" id="mobile_number"  value="{{data.mobile_number}}"  placeholder="xxxxx-xxxxx">
+            <span class="error-msg" style="display: none;"></span>
+<!--            <div class="myr__form-block">-->
+<!--                <input type="text" name="mobile" id="mobile_number"  value="{{data.mobile_number}}"  placeholder="xxxxx-xxxxx">-->
+<!--                <button class="myr__btn myr__button-primary" id="send_otp">Re-send OTP</button>-->
+<!--            </div>-->
+        </div>
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label class="required" for="otp">Password</label>
+            <input type="password" name="password"  id="password" >
+            <span class="error-msg" style="display: none;"></span>
+        </div>
+        <div class="myr__form-row">
+            <label class="required" for="otp">Confirm Password</label>
+            <input type="password" name="confirm_password"  id="confirm_password" >
+            <span class="error-msg" style="display: none;"></span>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label for="lname">Referral Code</label>
+            <input type="text" name="referral_code"  id="referral_code" value="{{data.referral_code}}">
+            
+        </div>
+
+
+
+        <!-- Submit button-->
+        <div class="myr__form-row myr__submit">
+            <button class="myr__btn myr__button-primary" id="register" >Submit</button>
+        </div>
+
+        <div class="myr__signin-link">
+            <a href="/login">Sign In</a>
+        </div>
+</div>
+</div>
+ <input type="hidden" name="user_type"  id="user_type" value="{{user_type}}">

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Home page</title>
+</head>
+
+<body class="myr__home-bg">
+       {% include  'web_app/layout/header.html' %}
+       {% include  'web_app/components/home-hero-banner.html' %}
+
+    <main class="myr__main myr__pt5">
+        <div class="myr__sub-title myr__mb5">
+            <h2>Service Offered</h2>
+        </div>
+          {% include  'web_app/components/card-slider.html' %}
+        <hr class="myr__hr myr__mt4 myr__mb4">
+        <div class="myr__physio-wrapper">
+        </div>
+    </main>
+
+
+    <!-- Login Screen -->
+
+
+    <!--Footer Section -->
+       {% include 'web_app/layout/footer.html' %}
+
+    <!-- JS -->
+       {% include 'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

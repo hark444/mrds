@@ -1,0 +1,33 @@
+.myr {
+    &__card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.25rem;
+    }
+    &__card-slider {
+        width: 12.3125rem;
+        background-color: $lightgray;
+        height: 17.5rem;
+
+        &-content {
+            padding: 14px;
+
+            h6 {
+                @include font-style(16, 20, 700, normal);
+            }
+
+            p {
+                @include font-style(14, 15, 400, normal);
+            }
+        }
+    }
+
+    &__cta-arrow {
+        margin-left: 35px;
+        display: inline-block;
+        color: #5c9ae1;
+        font-size: 17px;
+    }
+
+}

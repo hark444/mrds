@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include  'admin_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+     {% include  'admin_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+      <div>
+          <div><h3> List of PTs</h3>
+              <a href="#" class="myr__btn myr__button-primary myr__book-appointment" id="registerId">Register PT</a>
+          </div>
+              {% if users %}
+         <table class="styled-table" id="styled-table">
+              <thead>
+              <tr>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>email</th>
+                  <th>Contact</th>
+                  <th>Address</th>
+                  <th>Referred patients</th>
+                  <th>Action</th>
+              </tr>
+               </thead>
+              <tbody>
+
+            {% for user in users %}
+            <tr>
+                  <td>{{user.user_name}}</td>
+                  <td>{{user.user_first_name}} {{user.user_last_name}}</td>
+
+                  <td>{{user.user_email}}</td>
+                  <td>{{user.user_mobile}}</td>
+                  <td>{{user.address}}</td>
+                  <td>Referred patients</td>
+                  <td><a href="#">Edit </a> &nbsp; <a href="#">Delete </a></td>
+            </tr>
+
+              {% endfor %}
+
+          </tbody>
+          </table>
+        {% else %}
+          <p>Sorry, no result found!</p>
+          {% endif %}
+      </div>
+
+
+         <!--Show Sign in Overlay -->
+<div class="myr__overlay hidden" id="RegisterBox" style="display: none">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'admin_app/register-pt.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'admin_app/layout/footer.html' %}
+
+    <!-- JS -->
+     {% include  'admin_app/layout/footer-lib.html' %}
+</body>
+
+</html>

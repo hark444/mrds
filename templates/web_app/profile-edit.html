@@ -1,0 +1,301 @@
+{% load static %}
+<style>
+    .myr__signup-wrapper {
+       width:100%;
+    }
+    .error1 {
+      color: red;
+      font-size: 12px;
+    }
+
+    .success {
+      border: 1px solid #ccc;
+    }
+
+     .error {
+      border: 1px solid red;
+    }
+
+    .myr__signup-wrapper {
+      width: 100%;
+    }
+
+    .required::after {
+    content: " *";
+    color: red;
+    
+}
+
+}
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Home page</title>
+
+</head>
+
+
+<body class="myr__home-bg">
+
+<!--"myr__home-bg"-->
+    <!-- Header Section -->
+    {% include 'web_app/layout/header-patient.html' %}
+    <!-- Body Section -->
+    <main>
+
+        <div class="myr__main myr__page-wrapper">
+            <div class="myr__profile">
+
+            </div>
+
+            <div class="myr__main">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-image">
+                        <!--<img src="{% static 'images/profile-dp-1.jpg' %}" alt=""> -->
+                             <img src="/media/profiles/{{data.user.profile_image_name}}" alt="" width="100px">
+                        </div>
+                        <div style="float:right">
+                    <p><label for="id_profile_Main_Img">Image:</label> <input type="file" name="profile_Main_Img" accept="image/*"  required id="id_profile_Main_Img">
+                        <button type="submit">Upload</button></p>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+              
+                <h4>Other Info</h4>
+                <div class="myr__profile-info">
+<!--                    <div class="myr__profile-info-wrap">-->
+<!--                        <div class="myr__profile-info-label">First Name:</div>-->
+<!--                        <div class="myr__profile-info-value"><input type="text" name="first_name" value="{{data.user.user_first_name}}" id="first_name"  ></div>-->
+<!--                        <span class="error-msg" style="display: none;"></span>-->
+<!--                    </div>-->
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="fname" style="display: inline-block; margin-right: 110px;">First Name <span class="required"></span></label>
+                        <input type="text" name="first_name" id="first_name"  value={{data.user.user_first_name}}  />
+                        <span class="error-msg" style="display: none;"></span>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="lname" style="display: inline-block; margin-right: 110px;">Last Name <span class="required"></span></label>
+                        <input type="text" name="last_name" id="last_name"  value={{data.user.user_last_name}}  />
+                        <span class="error-msg" style="display: none;"></span>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="gender" style="display: inline-block; margin-right: 110px;">Gender <span class="required"></span></label>
+                        <input type="radio" name="gender" value="male"  {% if data.user.gender == "male" %} checked {% endif %}> Male
+                        <input type="radio" name="gender" value="female" {% if data.user.gender == "female" %} checked {% endif %}> Female</div>
+                        <span class="error-msg" style="display: none;"></span>
+                    </div>
+                
+                
+                    <div style="margin-bottom: 20px;">
+                        <label for="dob" style="display: inline-block; margin-right: 110px;">Date of Birth<span class="required"></span></label>
+                        <input type="date" name="last_name" id="dob"  value={{data.user.dob}}  />
+                        <span class="error-msg" style="display: none;"></span>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="email" style="display: inline-block; margin-right: 110px;">EmailId<span class="required"></span></label>
+                        <input type="text" name="email" id="email"  value="{{data.user.user_email}}" disabled />
+                        <span class="error-msg" style="display: none;"></span>
+                    </div>
+                   
+
+
+                    <div><input type="submit" name="update_personal_info" id="update_personal_info" value="Update"> </div>
+                     
+                     <!-- Success message -->
+    <div id="success_message" style="display: none; color: green;">Information updated</div>
+
+                                          <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Title:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="title" id="title" value="{{data.address.title}}" ></div>
+                    </div>
+
+                        <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Address 1:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="address_1" id="address_1" value="{{data.address.address_1}}" ></div>
+                    </div>
+
+                     <!-- Info row -->
+                     <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Address 2:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="address_2" id="address_2" value="{{data.address.address_2}}" > </div>
+                    </div>
+
+                     <!-- Info row -->
+                     <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">City:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="city" id="city" value="{{data.address.city}}" > </div>
+                    </div>
+
+                     <!-- Info row -->
+                     <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">District:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="district" id="district" value="{{data.address.dist}}" > </div>
+                    </div>
+
+                    <!-- Info row -->
+                     <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">State:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="state" id="state" value="{{data.address.state}}" > </div>
+                    </div>
+
+                       <!-- Info row -->
+                     <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Pincode:</div>
+                        <div class="myr__profile-info-value"><input type="text" name="pincode" id="pincode" value="{{data.address.pincode}}" > </div>
+                    </div>
+
+                    <div><input type="submit" name="update_address_info" id="update_address_info" value="Update"> </div>
+
+                    <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Subscription:</div>
+                        <div class="myr__profile-info-value">
+                          {% for sub in data.subscription %}
+                            <p><input type="radio" name="subscription" value="{{sub.subscription_id}}" {% if sub.subscription_id in data.user_subscription %} checked {% endif %}>{{sub.cost}}, {{sub.subscription_name}} </p>
+                          {% endfor %}
+                        </div>
+                    </div>
+                            <input type="submit" name="update_subscription_info" id="update_subscription_info" value="Update">
+
+      {% if user_data.user_type == 2 or user_data.user_type == 3 %}
+          <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">About me:</div>
+                        <div class="myr__profile-info-value"><textarea rows = "5" cols = "50" name="about_me" id="about_me">{{data.profile.about_me}}</textarea> </div>
+                    </div>
+          <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Total experience:</div>
+                        <div class="myr__profile-info-value"><input type="text"  name="total_experience" id="total_experience" value="{{data.profile.total_experience}}"></div>
+                    </div>
+
+                    <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Consultation Fee:</div>
+                        <div class="myr__profile-info-value">₹<input type="text"  name="consultation_fees" id="consultation_fees" value="{{data.profile.consultation_fees}}"></div>
+                    </div>
+
+                    <input type="submit" name="update_profile_info" id="update_profile_info" value="Update">
+
+
+           <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Download Certificate:</div>
+                        <div class="myr__profile-info-value"><a href="#"> <em class="bi bi-filetype-pdf myr__icon"></em></a> Format 300kb)</div>
+                    </div>
+        <div id="professional_info" class="info_box">
+            <p>Qualification</p>
+            <div>
+                <!--<select  name="qualification" id="qualification" >
+                    <option value="">&#45;&#45;Please select&#45;&#45;</option>-->
+
+                    {% for qua in data.qualification %}
+                <p><input type="checkbox" name="qualification" value="{{qua.qualification_id}}" {% if qua.qualification_id|slugify in data.user_qualification %} checked {% endif %}>{{qua.qualification}}</p>
+                   <!-- <option value="{{qua.qualification_id}}">{{qua.qualification}}</option>-->
+
+                    {% endfor %}
+              <!-- </select>-->
+            </div>
+             <!-- Info row -->
+                    <div class="myr__profile-info-wrap">
+                        <div class="myr__profile-info-label">Specialization:</div>
+                        <div class="myr__profile-info-value">
+                               {% for spec in data.specialization %}
+                                      <p><input type="checkbox" name="specialization" value="{{spec.specialization_id}}" {% if spec.specialization_id|slugify in data.user_specialization %} checked {% endif %} >
+                                        {{spec.specialization}}</p>
+
+                                {% endfor %}
+
+                        </div>
+                    </div>
+
+           <input type="submit" name="update_professional_info" id="update_professional_info" value="Update"> </div>
+        </div>
+
+
+
+        <table cellspacing="6"  border="2" cellpadding="6">
+              <tr>
+                <th>Days</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Slots</th>
+                <th>Availability</th>
+              </tr>
+            {% for day in days %}
+                <tr>
+                    <td>{{day|title}}</td>
+                    <td>
+                        <input type="time" id="{{day}}_start_time" name="{{day}}_start_time"
+                        min="09:00" max="18:00" value="09:00" required>
+                    </td>
+                    <td>
+                        <input type="time" id="{{day}}_end_time" name="{{day}}_end_time"
+                        min="09:00" max="18:00" value="17:00" required>
+                    </td>
+<!--                    <td>-->
+<!--                        <input type="text" id="{{day}}_duration" name="{{day}}_duration" value="30" >-->
+<!--                    </td>-->
+                    <td>
+                        <select id="{{day}}_duration" name="{{day}}_duration"  >
+                            {% for i in duration %}
+                              {% if i|divisibleby:5 %}
+                                  {% if i == 30 %}
+                                        <option value={{i}} selected>{{i}}</option>
+                                  {% else %}
+                                        <option value={{i}}>{{i}}</option>
+                                  {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                    <input type="checkbox" id="{{day}}_available" name="{{day}}_available" value="1">
+                    </td>
+              </tr>
+            {% endfor %}
+
+
+        </table>
+
+                    <div><input type="submit" name="update_availability_info" id="update_availability_info" value="Update"> </div>
+
+                </div>
+                    {% endif %}
+
+            </div>
+        </div>
+
+
+    </main>
+
+
+
+
+
+
+    <!--Footer Section -->
+     {% include  'web_app/layout/footer.html' %}
+
+
+
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

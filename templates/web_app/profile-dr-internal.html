@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      {% include 'web_app/layout/head.html' %}
+    <title>My Refer Home page</title>
+    <link href="{% static 'css/slot-calender.css' %}" rel="stylesheet" >
+</head>
+
+<body class="myr__home-bg">
+
+    <!-- Header Section -->
+    {% include 'web_app/layout/header-dr.html' %}
+    <!-- Body Section -->
+    <main class="myr__inner">
+        <div class="myr__main myr__page-wrapper">
+            <div class="myr__profile">
+                <div class="myr__profile-content myr__parent">
+                    <div class="myr__profile-image">
+                        <!--<img src="{% static 'images/profile-dp-1.jpg' %}" alt=""> -->
+                         <img src="/media/profiles/{{data.profile_image_name}}" alt="" width="100px">
+                    </div>
+
+                    <div class="myr__profile-text">
+                        <h1>Dr. {{data.user_first_name}} {{data.user_last_name}} </h1>
+
+                        <p>{{data.specialization}}</p>
+<!--                        <p>Orthopedist, Joint Replacement Surgeon</p>-->
+                        <p> <strong>{{data.total_experience}} Years</strong> Experience Overall</p>
+                        <a href="/profile/edit" class="myr__btn myr__button-primary myr__profile-btn">Edit Profile</a>
+                        <div class="myr__profile-regno">
+                            <p>
+                                Reg No. : 2022001234 <em class="bi bi-patch-check-fill"></em>
+                                <a href="#"><em class="bi bi-filetype-pdf"></em></a> <br>
+                                <span class="myr__price"><em>&#x20B9;</em> {{data.consultation_fees}} per visit</span>
+                            </p>
+                            <div class="myr__btn myr__text-center myr__p0 myr__mx-auto">
+                                <a href="#?" class="myr__btn myr__button-primary myr__mx-auto myr__m0 myr__book-appointment">
+                                    Show appointments</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myr__slot-calender myr__mt3">
+                     {% include 'web_app/components/slot-calender.html' %}
+                </div>
+            </div>
+            <div class="myr__row-container">
+                <div class="myr__col-left">
+                    <div class="myr__main myr__mt3 myr__mb3 myr__profile-desc">
+
+                        <p>{{data.about_me}}</p>
+
+                    </div>
+                    <div class="myr__main">
+                        <h4>Other Info</h4>
+                        <div class="myr__profile-info">
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Email:</div>
+                                <div class="myr__profile-info-value">{{data.user_email}}</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Pan / Aadhar:</div>
+                                <div class="myr__profile-info-value">To be added</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Clinic:</div>
+                                <div class="myr__profile-info-value">{{data.address_1}}{{data.address_2}}{{data.city}}{{data.state}}{{data.pincode}}</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Services:</div>
+                                <div class="myr__profile-info-value">{{data.specialization}}</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Rating:</div>
+                                <div class="myr__profile-info-value">to be added</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Hospital:</div>
+                                <div class="myr__profile-info-value">{{data.address_1}}{{data.address_2}}{{data.city}}{{data.state}}{{data.pincode}}</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Available:</div>
+                                <div class="myr__profile-info-value">ON - CALL</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Consultation Fee:</div>
+                                <div class="myr__profile-info-value">₹{{data.consultation_fees}}/-</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Download Certificate:</div>
+                                <div class="myr__profile-info-value"><a href="#"> <em class="bi bi-filetype-pdf myr__icon"></em></a> Format 300kb)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="myr__main myr__mb2">
+             {% include 'web_app/components/card-slider.html' %}
+        </div>
+    </main>
+
+
+
+
+    <!--Footer Section -->
+      {% include  'web_app/layout/footer.html'  %}
+
+
+
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html'  %}
+</body>
+
+</html>

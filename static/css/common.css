@@ -1,0 +1,38 @@
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    display:none;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.myr__form-radio label {
+    /*width:100%*/
+}
+
+.myr__form-radio {
+    gap: 2px;
+}
+
+.login-box {
+    /*border: 1px solid #ccc;*/
+}
+
+.pa-label {
+    background: #232c60
+}
+.pt-label {
+    background: #77b9e6
+}
+
+.dr-label {
+    background: #4dc1bc
+}
+.myr__form-radio-v2 label {
+    font-size: 14px !important;
+}
+
+
+.myr__inner {
+    min-height: 300px;
+}

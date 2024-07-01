@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'web_app/layout/header.html' %}
+    <div class="myr__banner-color">
+    </div>
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__sub-title myr__mt2 myr__mb4">
+            <h2>My Cart</h2>
+        </div>
+        {% csrf_token %}
+        <form class="myr__form myr__mt4 myr__cart-form">
+            <div class="myr__form-row">
+                <div class="myr__form-block">
+                    <label for="">Email</label>
+                    <input type="text" name="email" placeholder="Enter your email" value="{{ user.user_email }}">
+                </div>
+
+                <div class="myr__form-block">
+                    <label for="">Mobile</label>
+                    <input type="text" value="{{ user.user_mobile }}">
+
+                </div>
+            </div>
+            <div class="myr__form-row">
+                <div class="myr__form-block">
+                    <label for="">Name</label>
+                    <input type="text" name="fname" value = "{{ user.user_first_name }} {{ user.user_last_name }}">
+                </div>
+
+            </div>
+
+               <div id="payment-form"></div>
+        </form>
+    </main>
+
+    <!--Footer Section -->
+   {% include 'web_app/layout/footer.html' %}
+   {% include 'web_app/components/overlay-screen.html' %}
+
+    <!-- JS -->
+    {% include 'web_app/layout/footer-lib.html' %}
+    <script src="https://sdk.cashfree.com/js/ui/2.0.0/cashfree.sandbox.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+function update_payment(txn_id, status) {
+    $.ajax({
+        url: "/ajax/paymentSave",
+        method: "POST",
+        data: {
+            payment_status: status,
+            txn_id: txn_id.toString(),
+            payment_amount: {{payment_amount}}
+        },
+        headers: {
+                  "X-CSRFToken": "{{csrf_token}}"
+                }
+
+
+     })
+}
+
+let paymentSessionId = "{{pay_data}}";
+const paymentDom = document.getElementById("payment-form");
+const success = function(data) {
+    if (data.order && data.order.status == "PAID") {
+        order_id = data.order.orderId
+     data = {
+                  "order_id": order_id,
+
+                }
+        $.ajax({
+            url: "/checkstatus",
+            method: 'post',
+            data: data,
+            dataType: 'json',
+
+            success: function(result) {
+                if (result.order_status == "PAID") {
+                    update_payment(order_id, "paid" )
+                    window.location.href = "/thank-you/"+order_id;
+                }
+            },
+        });
+
+    } else {
+        //order is still active
+        alert("Order is ACTIVE")
+    }
+
+
+}
+let failure = function(data) {
+    update_payment('', "failed" )
+    alert("Transaction has been failed, please try again!")
+}
+
+
+    const dropConfig = {
+        "components": [
+            "order-details",
+            "card",
+            "netbanking",
+            "app",
+            "upi"
+        ],
+        "onSuccess": success,
+        "onFailure": failure,
+        "style": {
+            "backgroundColor": "#ffffff",
+            "color": "#11385b",
+            "fontFamily": "Lato",
+            "fontSize": "14px",
+            "errorColor": "#ff0000",
+            "theme": "light", //(or dark)
+        }
+    }
+
+     if (paymentSessionId == "") {
+        $.ajax({
+            url: "fetchtoken.php",
+            success: function(result) {
+                paymentSessionId = result["payment_session_id"];
+                const cashfree = new Cashfree(paymentSessionId);
+                cashfree.drop(paymentDom, dropConfig);
+            },
+        });
+    } else {
+        const cashfree = new Cashfree(paymentSessionId);
+        cashfree.drop(paymentDom, dropConfig);
+    }
+
+<!--     const cashfree = new Cashfree(paymentSessionId);-->
+<!--        cashfree.drop(paymentDom, dropConfig);-->
+</script>
+</body>
+
+</html>

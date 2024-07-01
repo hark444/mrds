@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'web_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__row-container myr__flex-md-dir">
+            <div class="myr__col-sidebar myr__sm-hidden myr__order-md-1">
+               {% include 'web_app/components/sidebar-1.html' %}
+            </div>
+            <div class="myr__col-left">
+                <div class="myr__sub-title myr__mt2 myr__mb4">
+                    <h2>PhysioTherapy Services Offered</h2>
+                </div>
+                <div class="myr__para">
+1. a) Tele-consultation is not an alternative to physical examination from a doctor. The main idea behind this is to provide qualified medical consultation in areas with limited availability of doctors so that patients do not ignore symptoms and so that diseases are detected early.
+b) Therapy package is made under supervision of Sr. Therapists for Facility and reference of patients, it is entirely different then the therapeutic procedures directed by therapist you chose.
+2. a) All tele-consultations will be provided by doctors registered with government council recognised by government of India. Prescriptions are only valid for over the counter drugs. Patients with limited mobility or those who are living far away may also use this for follow-up consult and for getting their medical reports checked.
+b)All therapy consultations will be provided by therapists registered with recognised government council related to physiotherapy / occupational therapy, or where it is not available recognised national/ state physiotherapy  / occupational therapy association, who have a minimum qualification of bachelor of physiotherapy / occupational therapy, awarded by recognised universities.
+c) Myrefer Will not be responsible for any mishaps due to patients disease.
+3. a) Doctors will provide consultation based on their knowledge and the symptoms described by the patient. However, without physical examination some symptoms may get missed. In such a situation the consulting doctor cannot be considered at fault.
+b) Post consultation or completion of package, if there is no improvement in health, please visit your doctor, therapist or nearest hospital immediately.
+4. These consultations and references are not valid for any medico legal purposes.
+5. These services are not for emergency situations. For emergency cases, please visit your nearest doctor immediately.
+6. a)I hereby declare that I am availing this tele-Consultancy of my own free will and for my convenience, from my favored Doctor, or by Doctor provided by MyRefer, without any external pressure or influence.
+b) I hereby declare that I am availing this Consultancy and package of my own free will and for my convenience, from my favored therapist, or by therapist provided by MyRefer, without any external pressure or influence.
+
+                    <div class="myr__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>First</th>
+                                    <th>Last</th>
+                                    <th>Handle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                                <tr>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="myr__col-sidebar">
+                 {% include 'web_app/components/sidebar.html' %}
+            </div>
+        </div>
+
+    </main>
+
+    <!--Footer Section -->
+    <!--Footer Section -->
+    {% include 'web_app/layout/footer.html' %}
+    {% include 'web_app/components/overlay-screen.html' %}
+
+    <!-- JS -->
+    {% include 'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

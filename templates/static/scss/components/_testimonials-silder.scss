@@ -1,0 +1,32 @@
+.myr {
+    &__testimonials {
+        &-title {
+            width: 100%;
+            text-align: center;
+        }
+        &-img {
+            text-align: center;
+            em{
+                &:before {
+                    font-size: 40px;
+                }
+            }
+            p{
+                white-space: nowrap;
+            }
+        }
+
+        &-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            width: 70%;
+            margin: 2.5rem auto;
+            gap: 45px;
+        }
+        &-bgcolor{
+            background-color: $lightgrey2;
+          }
+    }
+}

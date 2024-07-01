@@ -1,0 +1,45 @@
+<div class="myr__login-wrapper">
+    <h5>Welcome 👋</h5>
+    <h3>Login to your account</h3>
+        <div class="myr__form myr__mt4">
+            <div class="error" id="error_msg">Error message</div>
+        <div class="myr__form-row">
+            <div class="myr__form-radio myr__form-radio-v2 myr__mb2">
+                <label class="radio-inline">
+                    <input type="radio" name="user_type" id="paUser" value="1" checked="">Pateint
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="user_type"  id="ptUser" value="2" >PT
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="user_type" id="drUser"  value="3" >Doctor
+                </label>
+            </div>
+        </div>
+        <div class="myr__form-row">
+            <label id="userLabel" for="">Username / Email address</label>
+            <div class="myr__form-block">
+                <input type="text" name="signin_email" id="signin_email">
+            </div>
+        </div>
+        <div class="myr__form-row">
+            <label for="">Password</label>
+            <input type="password" name="password" id= "password">
+        </div>
+        <div class="myr__form-row myr__submit">
+            <button class="myr__btn myr__button-primary"id="login" >Login</button>
+        </div>
+   </div>
+</div>
+{% if user_type_id == 1 %}
+<div class="myr__signup-link">
+    <div><a href="/register">Sign Up</a></div>
+    <div><a href="/forgot-password">Forgot Password?</a></div>
+
+ {% endif %}
+</div>
+
+
+
+
+<!-- <input type="hidden" name="user_type"  id="user_type" value="{{user_type_id}}">-->

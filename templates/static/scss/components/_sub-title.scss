@@ -1,0 +1,19 @@
+.myr {
+    &__sub-title {
+        position: relative;
+        h2 {
+            @include font-style(24, 27, 700, normal);
+
+            &:after {
+                border-bottom: 5px solid $tertiary;
+                width: 5.5625rem;
+                border-radius: .3125rem;
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: -0.625rem;
+            }
+        }
+
+    }
+}

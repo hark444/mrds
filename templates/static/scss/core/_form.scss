@@ -1,0 +1,42 @@
+.myr {
+    &__input {
+        width: 100%;
+        background: $white;
+        border: 1px solid $lightgrey3;
+        color: $lightgrey5;
+        padding: .375rem .375rem;
+        padding-left: .625rem;
+        border-radius: .3125rem;
+        @include font-style(14, 24, 400, normal);
+
+        &-bradius {
+            border-radius: .3125rem;
+        }
+
+        @include media-query(smphone) {
+            font-size: .75rem;
+            padding: .49rem .375rem;
+        }
+    }
+
+    &__search-wrap {
+        em {
+            position: absolute;
+            color: $lightgrey3;
+            left: 10px;
+            top: 8px;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: $primary;
+            padding: 7px;
+            border-radius: 0px 5px 5px 0px;
+            width: 113.5px;
+            height: 2.375rem;
+            text-align: center;
+        }
+    }
+}

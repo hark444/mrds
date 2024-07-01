@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include  'admin_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+     {% include  'admin_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+      <div>
+          <div><h3> List of Refers</h3>
+              <a href="#" class="myr__btn myr__button-primary myr__book-appointment" id="registerId">Refer Patients</a>
+          </div>
+              {% if refers.count > 0 %}
+          <table class="styled-table">
+              <thead>
+              <tr>
+
+                  <th>Name</th>
+                  <th>email</th>
+                  <th>Contact</th>
+                  <th>City</th>
+                  <th>Diagnosis</th>
+                  <th>Treatment</th>
+                  <th>Referred By</th>
+                  <th>Referred to</th>
+                  <th>Referred date</th>
+                  <th>Referral Code</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+               </thead>
+              <tbody>
+
+            {% for refer in refer_list %}
+            <tr>
+                  <td>{{refer.refer.first_name}} {{refer.refer.last_name}}</td>
+                  <td>{{refer.refer.email}}</td>
+                  <td>{{refer.refer.mobile_number}}</td>
+                  <td>{{refer.refer.city}}</td>
+                  <td>{{refer.refer.diagnosis}}</td>
+                  <td>{{refer.refer.treatment}}</td>
+                  <td>{{refer.refer_by}}</td>
+                  <td>{{refer.refer_to}}</td>
+                  <td>{{refer.refer.referred_date}}</td>
+                  <td>{{refer.refer.referral_code}}</td>
+                  <td>{{refer.refer.status}}</td>
+                  <td><a href="#" class="{{refer.user_action}}" id="{{refer.user_action}}Id_{{refer.user_id}}">{{refer.user_action}} </a>  <a href="#">Edit </a> &nbsp; <a href="#">Delete </a></td>
+            </tr>
+
+              {% endfor %}
+
+
+              </tbody>
+          </table>
+        {% else %}
+          <p>Sorry, no result found!</p>
+          {% endif %}
+      </div>
+
+
+         <!--Show Sign in Overlay -->
+<div class="myr__overlay hidden" id="RegisterBox" style="display: none">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'refer_app/refer-frm.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+          <!--Show Sign in Overlay -->
+<div class="myr__overlay hidden" id="ReferDrScreen" style="display: none">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'web_app/components/dr-refer-patient.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'admin_app/layout/footer.html' %}
+
+    <!-- JS -->
+     {% include  'admin_app/layout/footer-lib.html' %}
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Home page</title>
+     <link href="{% static 'css/slot-calender.css' %}"  rel="stylesheet">
+</head>
+
+<body class="myr__home-bg">
+    <!-- Header Section -->
+     {% include  'web_app/layout/header.html' %}
+    <!-- Body Section -->
+    <main>
+        <div class="myr__main myr__page-wrapper">
+            <div class="myr__profile">
+                <div class="myr__profile-content  myr__parent">
+                    <div class="myr__profile-image">
+                        <img src="{% static 'images/profile-dp-1.jpg' %}" alt="">
+                    </div>
+                    <div class="myr__profile-text">
+                        <h1>{{data.user.user_first_name}} {{data.user.user_last_name}} </h1>
+                        <p>Qualification and Specilization</p>
+
+                        <p> <strong>{{data.profile.total_experience}} years of</strong> Experience Overall</p>
+                        <a href="#" class="myr__btn myr__button-primary myr__profile-btn">Edit Profile</a>
+                        <div class="myr__profile-regno">
+                            <p>
+                                Reg No. : 2022001234 <em class="bi bi-patch-check-fill"></em>
+                                <a href="#"><em class="bi bi-filetype-pdf"></em></a> <br>
+                                <span class="myr__price"><em>&#x20B9;</em> 1000 per visit</span>
+                            </p>
+                            <div class="myr__btn myr__text-center myr__p0 myr__mx-auto">
+                                <a href="#?" class="myr__btn myr__button-primary myr__mx-auto myr__m0 myr__book-appointment">Book an appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="myr__slot-calender myr__mt3">
+                    {% include 'web_app/components/slot-calender.html' %}
+                </div>
+            </div>
+            <div class="myr__row-container">
+                <div class="myr__col-left">
+                    <div class="myr__main myr__mt3 myr__mb3 myr__profile-desc">
+                        <p>Dr John Deo is a Fellowship Trained Joint Replacement Surgeon and specializes in Primary and Revision Joint Replacement of hip, knee, shoulder and elbow. He has a special interest in Unicompartmental Knee Replacement and Computer Navigated Total Knee Replacement.</p>
+
+                        <p>He has received his training from prestigious institutes of the country and abroad. He did his graduation from Maulana Azad Medical College, New Delhi and his post-graduation from PGIMER, Chandigarh. He then received his fellowship training from University of Calgary, Canada and the University of Missouri, USA.</p>
+
+                        <p>He is in practice for 11 years in which he has done thousands of procedures including primary and revision Joint Replacement. At present, he is working with Max Healthcare as Senior Consultant – Orthopaedics and Joint Replacement.</p>
+                    </div>
+                    <div class="myr__main">
+                        <h4>Other Info</h4>
+                        <div class="myr__profile-info">
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Email:</div>
+                                <div class="myr__profile-info-value">{{data.user.user_email}}</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Pan / Aadhar:</div>
+                                <div class="myr__profile-info-value">df</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Clinic:</div>
+                                <div class="myr__profile-info-value">Saket, Delhi</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Services:</div>
+                                <div class="myr__profile-info-value">General Consultation, Bankart Repair, Joint Replacement, more</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Rating:</div>
+                                <div class="myr__profile-info-value">3.5</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Hospital:</div>
+                                <div class="myr__profile-info-value">Max Smart Superspeciality Hospital, Press Enclave marg, Mandir Marg, Delhi. <br>Landmark: Saket Institutional Area, Delhi</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Available:</div>
+                                <div class="myr__profile-info-value">ON - CALL</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Consultation Fee:</div>
+                                <div class="myr__profile-info-value">₹1000/-</div>
+                            </div>
+                            <!-- Info row -->
+                            <div class="myr__profile-info-wrap">
+                                <div class="myr__profile-info-label">Download Certificate:</div>
+                                <div class="myr__profile-info-value"><a href="#"> <em class="bi bi-filetype-pdf myr__icon"></em></a> Format 300kb)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="myr__main myr__mb2">
+            {% include 'web_app/components/card-slider.html' %}
+        </div>
+    </main>
+
+
+
+
+
+    <!--Footer Section -->
+     {% include  'web_app/layout/footer.html' %}
+
+
+
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

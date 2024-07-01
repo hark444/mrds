@@ -1,0 +1,9 @@
+{% if 'id' in user_data  %}
+    {% if user_data.user_type == 1  %}
+        {% include  'web_app/layout/header-patient.html' %}
+    {% else %}
+        {% include  'web_app/layout/header-dr.html' %}
+    {% endif %}
+{% else %}
+    {% include  'web_app/layout/header-guest.html' %}
+{% endif %}

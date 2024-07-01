@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include  'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+     {% include  'web_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__sub-title myr__mt2 myr__mb4">
+            <h2>Thanks You</h2>
+        </div>
+        <div>
+            <p>
+               <strong> Hi {{ user_data.first_name }} {{ user_data.last_name }}, your appointment is confirmed, thanks for choosing my refer.</strong>
+            </p>
+            <p>
+               <strong> Order Id: {{ order_id }}</strong>
+            </p>
+            <span>We will shortly confirm appointment on your registered email id. If you have any concern or query. <br>call us at <strong>1800-000-000</strong></span>
+        </div>
+
+    </main>
+
+    <!--Footer Section -->
+     {% include  'web_app/layout/footer.html' %}
+
+
+
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

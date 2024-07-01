@@ -1,0 +1,38 @@
+{% load static %}
+<div class="myr__header__wrap myr__sticky">
+      <header class="myr__header" id="myr__header" role="header">
+        <nav class="myr__nav" role="Navigation">
+            <div class="myr__nav-left">
+                <div class="myr__header-logo">
+                     <a href="/">
+                        <picture>
+                            <source media="(max-width:465px)" srcset= "{% static 'images/pm-logo-stick.svg' %}">
+                            <img src="{% static 'images/pm_logo.svg' %}" alt="Physico Mitra">
+                        </picture>
+                    </a>
+                </div>
+                <div class="myr__nav-wrap">
+                    <ul>
+                        <li><a href="/search">Consult</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="myr__nav-right">
+               {#<div class="myr__search"><a href="/search"><em class="bi bi-search"></em></a></div>#}
+                {#<div class="myr__basket"><a href="/cart"><em class="bi bi-basket"></em><span>8888123</span></a></div>div#}
+                <div class="myr__login-mobile"><a href="/login" class="myr__btn myr__button-white">Login / Sign up</a></div>
+                 <div class="myr__login-icon hidden"><a href="/login" class="myr__btn1"><em class="bi bi-person-bounding-box"></em></a></div>
+
+                </div>
+                <div class="myr__login-icon myr__lg-hidden"><a href="/login" class="myr__btn1"><em class="bi bi-person-bounding-box"></em></a></div>
+
+            </div>
+
+            <div class="myr__nav-humburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<a name="top" id="top"></a>

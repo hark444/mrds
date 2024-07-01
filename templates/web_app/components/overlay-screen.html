@@ -1,0 +1,23 @@
+<!--Show Sign in Overlay -->
+<div class="myr__overlay hidden" id="loginScreen">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'web_app/components/signin-form.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Show Sign up Overlay -->
+<div class="myr__overlay hidden" id="signupScreen">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+               {% include 'web_app/components/signup-form.html' %}
+            </div>
+        </div>
+    </div>
+</div>

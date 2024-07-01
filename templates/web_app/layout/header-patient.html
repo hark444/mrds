@@ -1,0 +1,45 @@
+{% load static %}
+
+<div class="myr__header__wrap myr__sticky">
+    <header class="myr__header" id="myr__header" role="header">
+        <nav class="myr__nav" role="Navigation">
+            <div class="myr__nav-left">
+                <div class="myr__header-logo">
+                    <a href="/">
+                        <picture>
+                            <source media="(max-width:465px)" srcset="{% static 'images/pm-logo-stick.svg' %}">
+                            <img src="{% static 'images/pm_logo.svg' %}" alt="Physico Mitra">
+                        </picture>
+                    </a>
+                </div>
+                <div class="myr__nav-wrap">
+                    <ul>
+                        <li><a href="/search">Consult</a></li>
+                        <li><a href="/my-appointments">My Appointments</a></li>
+                        <li><a href="/referred-doctors">My Referred Doctors</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="myr__nav-right">
+                <div class="myr__user pos-rel">
+                    <strong>Welcome, </strong><span>{{user_data.first_name}} {{user_data.last_name}} <em class="bi bi-chevron-right"></em></span>
+
+                    <div class="myr__logout">
+                        <a href="/my-appointments"> <em class="bi bi-gear"></em> My Appointments</a>
+                        <a href="/referred-doctors"> <em class="bi bi-gear"></em> My Referred Doctors</a>
+                        <a href="/profile"> <em class="bi bi-gear"></em> Settings</a>
+                        <a href="/reset-password"> <em class="bi bi-gear"></em>Reset password</a>
+                        <a href="/logout"> <em class="bi bi-arrow-right"></em> Logout</a>
+                    </div>
+                </div>
+                <div class="myr__login-icon myr__lg-hidden myr__md-hidden myr__sm-hidden"><a href="#" class="myr__btn1"><em class="bi bi-person-bounding-box"></em></a></div>
+            </div>
+
+            <div class="myr__nav-humburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<a name="top" id="top"></a>

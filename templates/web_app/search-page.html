@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     {% include  'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+    <link href="{% static 'css/slot-calender.css' %}" rel="stylesheet">
+</head>
+
+<body class="myr__home-bg">
+    {% include  'web_app/layout/header.html' %}
+
+  <main class="myr__main myr__inner myr__mb3">
+        <form id="search_form" name="search_form" method="post" action="/search" class="myr__form myr__mt4">
+            <div class="myr__search-bar ">
+                <div class="myr__gps-location">
+                    <span class="icon-map"><em class="bi bi-geo-alt"></em></span>
+                    <input type="text" name="search_city" value="" placeholder="Location">
+                    <a href="#"><span class="icon-gps"><img src="{% static 'images/icon-gps.svg' %}" alt=""></span></a>
+                </div>
+                <div class="myr__input-location myr__form-row">
+                      <input type="text" name="search_keyword" placeholder="Search Hospital, Doctor, Speciality or Treatment">
+                    <a href="#"   id="search_doctor"><span class="icon-lens"><em class="bi bi-search"></em></span></a>
+
+
+                </div>
+            </div>
+<!--            &lt;!&ndash; Filter by &ndash;&gt;-->
+<!--            <div class="myr__filter-sort-by myr__mt4">-->
+<!--                <div class="myr__filter-by">-->
+<!--                    <em class="bi bi-filter-right"></em>-->
+<!--                    <span>Filter By Search</span>-->
+<!--                    <em class="bi bi-chevron-down"></em>-->
+<!--                </div>-->
+<!--                <div class="myr__sort-by">-->
+<!--                    <span>Sort By</span>-->
+<!--                    <select>-->
+<!--                        <option>Popularity</option>-->
+<!--                        <option value="">Fees: Low to High</option>-->
+<!--                        <option value="">Fees: High to Low</option>-->
+<!--                        <option value="">A-Z</option>-->
+<!--                        <option value="">Z-A</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="myr__filter-wrap">-->
+<!--                <div class="myr__filter-search">-->
+<!--                    <div class="myr__filter-fee myr__filter-border myr__flex24">-->
+<!--                        <p>Fees-->
+<!--                        <span>Drop the bar to pick your fees</span>-->
+<!--                        </p>-->
+<!--                        -->
+<!--                        <div class="myr__slidecontainer">-->
+<!--                            <input type="range" min="50" max="5000" value="50" step="50" class="myr__slider myr__range-input" id="myRange">-->
+<!--                            <div id="rangeValue" class="myr__rangeValue"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="myr__filter-specialist myr__filter-border myr__flex24">-->
+<!--                        <div class="myr__ml3 myr__mr2 myr__filter-row">-->
+<!--                            <p>Specialist -->
+<!--                            <span>Click to the select box for the Specialist</span>-->
+<!--                            </p>-->
+<!--                           -->
+<!--                            <select name="" id="">-->
+<!--                                <option value="">Select Specialist</option>-->
+<!--                                <option value="">Obstetrics and gynecology</option>-->
+<!--                                <option value="">Pediatrics</option>-->
+<!--                                <option value="">Physiotherapy</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="myr__filter-nearby myr__filter-border myr__flex24">-->
+<!--                        <div class="myr__ml3 myr__mr2 myr__filter-row">-->
+<!--                            <p>Doctors Near Me-->
+<!--                            <span>Click the icon to select the location</span>-->
+<!--                            </p>-->
+<!--                            -->
+<!--                            <a href="#?"><em class="bi bi-pin-map-fill"></em></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="myr__filter-rating myr__flex24">-->
+<!--                        <div class="myr__ml3 myr__mr2 myr__filter-row">-->
+<!--                            <p>Star Rating -->
+<!--                                <span>Click on the star icons  to filter your results</span>-->
+<!--                            </p>-->
+<!--                           -->
+<!--                            <div class="myr__star">-->
+<!--                                 {% include 'web_app/components/star-ratings.html' %}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="myr__filter-btn">-->
+<!--                    <a href="#" class="myr__btn myr__button-primary">Apply Filter</a>-->
+<!--                </div>-->
+<!--            </div>-->
+        </form>
+        <!--Search Results Column -->
+      <form name="result_form" id="result_form" method="post" action="/cart" class="myr__form myr__mt4">
+        <div class="myr__main myr__filter-container">
+
+       {% for r in result %}
+            <div class="myr__serach-row myr__mt2 myr__mb2">
+                <div class="myr__profile myr__dr-profile">
+                    <div class="myr__profile-content">
+                        <div class="myr__profile-image">
+                            <a href="/doctor/profile/{{r.user_id}}"> <img src="/media/profiles/{{r.profile_image_name}}" alt=""> </a>
+
+                        </div>
+                        <div class="myr__profile-text">
+                            <h3 class="myr__search-title"><a href="/doctor/profile/{{r.user_id}}"> {{r.user_first_name}} {{r.user_last_name}} </a></h3>
+                            <p>{{r.about_me}}</p>
+                            <p>{{r.specialization}}</p>
+                            <p>{{r.title}}, {{r.city}}, {{r.state}} </p>
+                            <p>{{r.qualification}}</p>
+                            <p> <img src="{% static 'images/maki_doctor.svg' %}" alt=""> {{r.total_experience}} Years of Practice</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="myr__dr-appointment">
+<!--                    <select name="" id="">-->
+<!--                        <option value="">{{r.title}}, {{r.city}}, {{r.state}}</option>-->
+<!--                    </select>-->
+
+                    <div class="myr__dr-btn">
+
+                        <span class="myr__price">
+                            <em>&#x20B9;</em> {{r.consultation_fees}} per visit
+                        </span>
+                        <a href="#?" class="myr__btn myr__button-primary myr__book-appointment" onclick="show_appointment_slots({{r.user_id}})">Book an appointment</a>
+                    </div>
+                </div>
+            </div>
+            <div class="myr__slot-calender" id="slot-calander-{{r.user_id}}">
+
+            </div>
+      {% endfor %}
+
+        </div>
+          <input type="hidden" name="user_apt_data" id="user_apt_data" value="">
+      </form>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'web_app/layout/footer.html' %}
+
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

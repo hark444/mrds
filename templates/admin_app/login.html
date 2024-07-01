@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include  'admin_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+     {% include  'admin_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div id="signin-form" style="width: 30%; margin: 0 auto">
+            {% include 'admin_app/signin-form.html' %}
+        </div>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'admin_app/layout/footer.html' %}
+
+    <!-- JS -->
+     {% include  'admin_app/layout/footer-lib.html' %}
+</body>
+
+</html>

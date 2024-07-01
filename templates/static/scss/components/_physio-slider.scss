@@ -1,0 +1,40 @@
+.myr{
+    &__physio-wrapper {
+        background: url(../images/physiotherapy_bg-1.svg);
+        background-repeat: no-repeat;
+        background-position: 29px -10px;
+        background-size: 14.5%;
+    }
+    &__physio-wrap {
+        padding: 0;
+    }
+    &__physio_text {
+        padding: 2.0625rem 1.1875rem 0 ;
+        width: 55%;
+        a {
+            display: inline-block;
+           &:first-child {
+            padding-right: .625rem;
+            color: $linkcolor;
+           }
+        }
+    }
+    &__physio-img {
+        img{
+            max-height: 17.6875rem;
+        }
+    }
+    &__physio-content {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding: 0;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        width: 72.75rem;
+        margin: 0 auto;
+        background: url(../../images/massage_therapy-0.jpg);
+        background-repeat: no-repeat;
+        background-position: right top;
+    }
+}

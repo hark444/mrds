@@ -1,0 +1,164 @@
+.myr {
+    &__footer {
+        &__wrap {
+            background-color: $secondary;
+            margin: 0;
+            position: relative;
+        }
+
+        &__cols {
+            max-width: 80rem;
+            margin: 0 auto;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 2.8125rem 0 2.1875rem;
+            column-count: 3;
+            column-gap: 2.5rem;
+
+            @include media-query(tablet) {
+                flex-flow: row wrap;
+                padding: 1.25rem;
+            }
+        }
+
+        &-text {
+            @include font-style(14, 24, 400, normal);
+            color: $lightcobaltblue;
+        }
+
+        &__bottom {
+            padding: 1.125rem 0;
+            background-color: $richblack;
+        }
+
+        &__col {
+            width: 30%;
+
+            @include media-query(tablet) {
+                width: 100%;
+                padding-left: 0;
+                margin: .625rem 0;
+
+                &:nth-child(1) {
+                    width: 100%;
+                    margin-bottom: 2.25rem;
+                }
+
+                &:nth-child(2) {
+                    width: 47%;
+                }
+
+                &:nth-child(3) {
+                    width: 47%;
+                }
+            }
+
+            @include media-query(smphone) {
+                &:nth-child(2) {
+                    width: 100%;
+                }
+
+                &:nth-child(3) {
+                    width: 85%;
+                }
+            }
+        }
+
+        &-nav {
+            li {
+                a {
+                    padding: 15px 0;
+                    display: inline-block;
+
+                    &.active {
+                        color: $white;
+                    }
+
+                    &:first-of-type {
+                        padding-top: 0;
+                    }
+                }
+
+                @include media-query(tablet) {
+                    display: inline;
+                    padding: 0 .625rem 0 0;
+                }
+
+
+            }
+        }
+
+        &-copyright {
+            max-width: 73.75rem;
+            margin: 0 auto;
+            color: $lightcobaltblue;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a {
+                color: $white;
+
+                &:after {
+                    content: "|";
+                    padding: 0 .375rem 0 .625rem;
+                }
+
+                &:last-of-type {
+                    &:after {
+                        content: '';
+                    }
+                }
+            }
+
+            @include media-query(tablet) {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            &-link {
+                a {
+                    color: $lightcobaltblue;
+                }
+            }
+        }
+    }
+
+    &__back-top {
+        position: absolute;
+        right: 0;
+        color: black;
+        border: 1px solid $charcoal;
+        padding: .625rem;
+        background: rgb(255 255 255 / 75%);
+        margin: 10px;
+        bottom: 70px;
+        cursor: pointer;
+        z-index: 2;
+        border-radius: 7px;
+
+        @include font-style (12, 14, 300, normal);
+
+        em {
+            display: block;
+            text-align: center;
+        }
+
+        span {
+            width: 2.25rem;
+            display: block;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        @include media-query(tablet) {
+            bottom: 0;
+        }
+
+        @include media-query(smphone) {
+            bottom: 11rem;
+        }
+    }
+}

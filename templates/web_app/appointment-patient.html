@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     {% include  'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+    <link href="{% static 'css/slot-calender.css' %}" rel="stylesheet">
+</head>
+
+<body class="myr__home-bg">
+    {% include  'web_app/layout/header.html' %}
+
+  <main class="myr__main myr__inner myr__mb3">
+        <!--Search Results Column -->
+        <div class="myr__main myr__filter-container">
+
+       {% for pd in patient_data %}
+            <div class="myr__serach-row myr__mt2 myr__mb2">
+                <div class="myr__profile myr__dr-profile">
+                    <div class="myr__profile-content">
+                        <div class="myr__profile-image">
+                             <img src="/media/profiles/{{pd.info.profile_image_name}}" alt="" width="200px">
+                        </div>
+                        <div class="myr__profile-text">
+                            <h3 class="myr__search-title">{{pd.info.user_first_name}} {{pd.info.user_last_name}} </h3>
+                            <br><br>
+                            <p>{{pd.info.user_mobile}}</p>
+                            <p>{{pd.info.user_email}}</p>
+                            <p>{{pd.address.title}}, {{pd.address.city}}, {{pd.address.state}} </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myr__profile myr__dr-profile">
+                    <div class="myr__profile-content">
+                        <div class="myr__profile-text">
+                            <h3 class="myr__search-title">Appointment Date & Time:  </h3>
+                            <p>{{pd.apt.appointment_datetime}}</p>
+
+
+                            <br>
+                            <h3 class="myr__search-title">Payment amount </h3>
+                            <p><em>&#x20B9;</em> {{pd.payment.0.payment_amount}} </p>
+                            <br>
+                            <h3 class="myr__search-title">Order ID </h3>
+                            <p>{{pd.payment.0.txn_id}} </p>
+                            <br>
+                            <h3 class="myr__search-title">Status </h3>
+                            <p>{{pd.apt_status}} </p>
+                        </div>
+                    </div>
+                </div>
+                                         <div class="myr__dr-appointment">
+                    <div class="myr__dr-btn">
+                    {%  if pd.apt.appointment_status != 7 and pd.apt.appointment_status != 9 %}
+                        <a href="/doctor/profile/{{pd.info.user_id}}" class="myr__btn myr__button-primary myr__book-appointment modify-apt-btn" id="modify-apt-btn_{{pd.apt.user_appointment_id}}">Modify appointment</a>
+
+                        <a href="#?" id="cancel-apt_{{pd.apt.user_appointment_id}}" class="myr__btn myr__button-primary myr__book-appointment cancel-apt" >Cancel appointment</a>
+
+                        {% endif %}
+
+                         <a href="#?" id="refer-dr-btn_{{pd.apt.user_appointment_id}}_{{pd.info.user_id}}" class="myr__btn myr__button-primary myr__book-appointment refer-doctor" >Refer to Friends</a>
+
+                    </div>
+                </div>
+            </div>
+
+      {% endfor %}
+
+        </div>
+          <input type="hidden" name="user_apt_data" id="user_apt_data" value="">
+  <!--Show Sign in Overlay -->
+<div class="myr__overlay hidden" id="ReferDrScreen" style="display: none">
+    <div class="myr__overlay-wrapper">
+        <div class="myr__overlay-body">
+            <div class="myr__overlay-content">
+                <div class="myr__overlay-header"><a href="#" class="close"><em class="bi bi-x-lg"></em></a></div>
+                {% include 'web_app/components/patient-refer-dr.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!--Footer Section -->
+     {% include  'web_app/layout/footer.html' %}
+     ""
+    <!-- JS -->
+     {% include  'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+.myr {
+    &__header {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(20px);
+
+        &__wrap {
+            background-color: $white;
+            padding: .44rem 0 0;
+        }
+
+        &-logo {
+            margin: .3125rem 0;
+
+            @include media-query(tablet) {
+                padding-left: .625rem;
+            }
+        }
+    }
+
+    &_sticky {
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+        box-shadow: 0px 1px 0 $lightgrey3;
+    }
+}

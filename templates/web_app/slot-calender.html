@@ -1,0 +1,62 @@
+{% load static %}
+<div class="wrapper">
+    <div class="tabs-wrapper">
+        <span class="left scroller-btn">
+            <em class="bi bi-chevron-left"></em>
+        </span>
+        <ul id="scroller" class="nav nav-tabs">
+            {% for k, v in clinicAvailibility.header.items %}
+            <li class="{{ v.class }}">
+                  <a data-toggle="tab" href="#menu_{{ k }}_{{v.user_id}}">
+                    <span class="title ">{{ v.day }}<br>{{k}}</span>
+                      {% if v.is_available is True %}
+                    <span class="slot-available">{{ v.slot_available }} Slots Available</span>
+                      {% else %}
+                      <span class="no-slot"> No Slots Available</span>
+                      {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        <span id="right" class="right scroller-btn">
+            <em class="bi bi-chevron-right"></em></span>
+    </div>
+    <div class="tab-content">
+
+
+            {% for k, v in clinicAvailibility.time_slot.items %}
+         <div id="menu_{{k}}_{{v.user_id}}" class="tab-pane fade {{v.class}}">
+             {% if v.is_available is True %}
+            <div class="time-schedule-wrap">
+                {% for k1, v1 in v.day_time.items %}
+                <div class="time-slot-wrap">
+
+                    <!-- Moring Slot-->
+                    <div class="day-icon">
+                        <em class="bi bi-sunrise morning"></em>
+                        <span>{{k1}}</span>
+                    </div>
+                    <div class="time-block-wrap">
+                         {% for v2 in v1 %}
+                        <span class="time-block" id="{{clinicAvailibility.user_id}}_apt_{{k}}_{{v2}}">{{v2}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+             {% else %}
+                 <div class="no-slot-available">
+                <em class="bi bi-calendar-x"></em>
+                <p>Sorry, No slots available</p>
+                <a href="#" class="myr__btn myr__button-primary" style="margin: 10px auto;">Call Now for Book Appointment</a>
+            </div>
+             {% endif %}
+             </div>
+            {% endfor %}
+
+
+    </div>
+</div>
+

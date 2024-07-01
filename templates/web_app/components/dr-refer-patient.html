@@ -1,0 +1,39 @@
+{% load static %}
+<style>
+    .myr__overlay-wrapper{
+        width: 80%;
+        overflow-y: scroll;
+        max-height: -webkit-fill-available;
+    }
+
+    .myr__overlay-body{
+        width: 100%;
+    }
+
+    .myr__inner{
+        margin: 0px 0px;
+    }
+</style>
+
+  <main class="myr__main myr__inner myr__mb3">
+            <div class="myr__search-bar ">
+                <div class="myr__gps-location">
+                    <span class="icon-map"><em class="bi bi-geo-alt"></em></span>
+                    <input type="text" name="search_city" id="search_city" value="" placeholder="Location">
+                    <a href="#"><span class="icon-gps"><img src="{% static 'images/icon-gps.svg' %}" alt=""></span></a>
+                </div>
+                <div class="myr__input-location myr__form-row">
+                      <input type="text" name="search_keyword" id="search_keyword" placeholder="Search Hospital, Doctor, Speciality or Treatment">
+                    <a href="#"   id="search_doctor_to_refer"><span class="icon-lens"><em class="bi bi-search"></em></span></a>
+
+
+                </div>
+            </div>
+
+
+        <!--Search Results Column -->
+        <div class="myr__main myr__filter-container" id="dr_search_result">
+
+        </div>
+      </form>
+    </main>

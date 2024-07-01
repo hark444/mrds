@@ -1,0 +1,352 @@
+html {
+  font-family: $font-primary;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $font-height;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  color: $black;
+  background: $white;
+  font-family: $font-primary;
+  font-size: $font-size;
+  line-height: $font-height;
+}
+
+.myr {
+  &__home-bg {
+    background: url(../images/banner-bg.svg);
+    background-position: top right;
+    background-repeat: no-repeat;
+  }
+  &__hr{
+   background-color: $lightgray1;
+   height: 1px; 
+   border: 0;
+  }
+  &__main {
+    max-width: 80rem;
+    @include center-block;
+  
+    @include media-query(tablet) {
+      width: 100%;
+      padding: 0 1.25rem;
+    }
+  
+    @include media-query(smphone) {
+      margin-top: 0;
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  color: $secondary;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.text-indent {
+  text-indent: -624.9375rem
+}
+
+a {
+  text-decoration: none;
+  transition: all .3s ease-in;
+  color: $black;
+
+  &.active {
+    color: $primary;
+  }
+}
+
+img {
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  border-style: none;
+}
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[tabindex="-1"]:focus:not(:focus-visible) {
+  outline: 0 !important;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+*[tabindex] {
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+[role="button"] {
+  cursor: pointer;
+}
+
+select {
+  word-wrap: normal;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+fieldset {
+  min-width: 0;
+}
+
+.mx-auto {
+  margin: auto auto;
+}
+
+body {
+  .ti {
+    &__pos-abs {
+      position: absolute;
+    }
+
+    &__pos-rel {
+      position: relative;
+    }
+
+    &__pos-fix {
+      position: fixed;
+    }
+
+    &__pos-sta {
+      position: static;
+    }
+
+    &__brdnone {
+      border: 0;
+    }
+
+    &__shadownone {
+      box-shadow: none;
+    }
+
+    &__d-block {
+      display: block;
+    }
+
+    &__d-flex {
+      &-sb {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &-dc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.ti {
+  &__fit-width {
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  &__text-center {
+    text-align: center;
+  }
+
+  &__icon-wrap {
+    @include border('bottom', 5px, solid, #ccc);
+    padding-bottom: 10px;
+  }
+}

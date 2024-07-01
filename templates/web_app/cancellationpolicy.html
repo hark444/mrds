@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'web_app/layout/head.html' %}
+    <title>My Refer Common page</title>
+</head>
+
+<body class="myr__home-bg">
+   {% include 'web_app/layout/header.html' %}
+<!--    <div class="myr__banner-color">-->
+
+<!--    </div>-->
+
+    <main class="myr__main myr__mt3 myr__mb3">
+        <div class="myr__row-container myr__flex-md-dir">
+            <div class="myr__col-sidebar myr__sm-hidden myr__order-md-1">
+               {% include 'common/commonpagedetails/sidebar-1.html' %}
+            </div>
+            <div class="myr__col-left">
+               <div class="myr__sub-title myr__mt2 myr__mb4">
+                    <h2>CANCELLATION POLICY</h2>
+                </div>
+                <div class="myr__para">
+<p ><strong><span >A. For therapy bookings:</span></strong></p>
+<p ><span >1. You may cancel or modify(switch therapy provider/ decrease therapy sessions / opt for a break in continuity of therapy) your booking any time through our website.</span></p>
+<p ><span >2. When you switch your provider your remaining package may credited in your My Refer wallet, which can be used in taking therapy from any other therapist subjected to <strong>acknowledgement from your therapist</strong>, but you have to make choice within 72 hrs otherwise it deemed cancelled.</span></p>
+<p ><span >3. When you opt for a break in continuity, you can halt therapy for a maximum of 7 days (only ones per package) <strong>only when your therapist confirm.</strong></span></p>
+<p ><span >4. Cancellation request may only accepted when it was <strong>acknowledged by your therapist.</strong></span></p>
+<p ><span >5. The applicable refund amount will be credited to you within 7 to 14 working days. We reserves the right to debit from your My Refer wallet, in case the cancellation amount being higher then money all ready paid by you.</span></p>
+<p ><span >6. i) <strong><em>For up to 14 days bookings:</em></strong></span></p>
+<p ><span >- <strong><em>No Show:</em>&nbsp;</strong>In case you not show up for your therapy session, charges for the one day therapy shell be deducted.</span></p>
+<p ><span >- <strong><em>Mid therapy cancellation/modification:</em></strong> In case you decided to shorten your all ready booked therapy sessions, you will charged one extra therapy session as cancellation fee.</span></p>
+<p ><strong><em><span >ii) For package bookings:</span></em></strong></p>
+<p ><span >- <strong><em>No Show:</em></strong> In case you not show up for your therapy session, 7% is deducted from total package cost.</span></p>
+<p ><span >- <strong><em>Mid therapy cancellation/ modification:</em></strong> In case you decided to shorten your all ready booked therapy sessions, 10% is deducted from Package cost left with you to avail.</span></p>
+<p ><strong><span >B. For cancellation of Renewal of Subscription plans:</span></strong></p>
+<p ><span >1.You may cancel renewal of your subscription at any time <strong>before due date of settlement</strong> through our website.</span></p>
+<p ><span >2. The applicable remuneration amount will be credited to you &nbsp; within 7 &ndash; 10 days from the settlement date. We reserves the right to debit from your My Refer wallet, in case the cancellation amount being higher then money all ready paid by you.</span></p>
+<p ><strong><em><span >i) for completed treatment packages till due date of settlement:&nbsp;</span></em></strong><span >your remuneration will be as per terms and conditions of your subscription.</span></p>
+<p ><strong><em><span >ii) for completed treatment packages which fall after the due date of settlement:&nbsp;</span></em></strong><span >your remuneration will be 70%* flat.</span></p>
+<p ><span >&nbsp;</span></p>
+<p ><strong><span>*On completion of package by patient, otherwise it is calculated on number of sessions given by you to patient.</span></strong></p>
+
+                </div>
+            </div>
+            <div class="myr__col-sidebar">
+                 {% include 'common/commonpagedetails/sidebar.html' %}
+            </div>
+        </div>
+
+    </main>
+
+    <!--Footer Section -->
+    <!--Footer Section -->
+    {% include 'web_app/layout/footer.html' %}
+    {% include 'web_app/components/overlay-screen.html' %}
+
+    <!-- JS -->
+    {% include 'web_app/layout/footer-lib.html' %}
+</body>
+
+</html>

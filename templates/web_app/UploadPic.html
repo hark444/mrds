@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile_image</title>
+</head>
+<body>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if obj %}
+    <h3>Succcessfully uploaded:{{img_obj.profileName}}</h3>
+    <img src="{{obj.profile_Main_Img.url}}" alt="image" class="img-thumbnail">
+    {% endif %}
+
+    {% for x in img %}
+    <img src="{{x.profile_Main_Img.url}}">
+    {% endfor %}
+
+</body>
+</html>

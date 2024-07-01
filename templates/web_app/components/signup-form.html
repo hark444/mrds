@@ -1,0 +1,62 @@
+<div class="myr__signup-wrapper">
+    <h5>Register for getting the latest update of industries.</h5>
+    <h3>Register Here</h3>
+        <div class="myr__form myr__mt4">
+        <div class="myr__form-row">
+            <div class="myr__form-radio myr__form-radio-v2 myr__mb2">
+                <label class="radio-inline">
+                    <input type="radio" name="user_type" value="1" checked="">Pateint
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="user_type" value="2" >PT
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="user_type" value="3" >Doctor
+                </label>
+            </div>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email_address"  placeholder="Please enter your email" required>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="first_name" placeholder="Please enter your First Name" required>
+        </div>
+
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname"  id="last_name" placeholder="Please enter your Last Name" required>
+        </div>
+
+        <div class="myr__form-row">
+            <label for="mobile">Mobile</label>
+            <div class="myr__form-block">
+                <input type="text" name="mobile" id="mobile_number" placeholder="xxxxx-xxxxx">
+                <button class="myr__btn myr__button-primary" id="send_otp">Re-send OTP</button>
+            </div>
+        </div>
+        <div class="myr__form-row">
+            <label for="otp">OTP</label>
+            <input type="text" name="otp"  id="received_otp" placeholder="Enter OTP sent on above mobile number">
+            <div class="myr__error">
+                <span class="myr__otp-error">Incorrect OTP, please enter OTP sent on your mobile</span>
+                <span class="myr__timer">0:05</span>
+            </div>
+        </div>
+        <div class="myr__form-row myr__mt2 myr__mb2">
+            <label for="referalcode">Referal Code</label>
+            <input type="text" name="referalcode" id="referalcode" placeholder="Please enter your referal code" required>
+        </div>
+
+        <!-- Submit button-->
+        <div class="myr__form-row myr__submit">
+            <button class="myr__btn myr__button-primary" id="register" >Submit</button>
+        </div>
+        <div class="myr__signin-link">
+            <a href="#">Sign In</a>
+        </div>
+</div>
+</div>
