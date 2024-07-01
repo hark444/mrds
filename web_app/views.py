@@ -1,38 +1,28 @@
-
-from django.shortcuts import render
-from django.conf import settings
-from django.core.cache.backends.base import DEFAULT_TIMEOUT
-
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
-from django.core.cache import cache
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.template.loader import render_to_string
-from django.shortcuts import redirect
-from services.UserService import UserService
-from services.OtpService import OtpService
-from services.EmailService import EmailService
+# TODO: Remove * imports
 from services.UtilService import *
-from datetime import date
-from dateutil.relativedelta import relativedelta
 
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from .forms import *
 import json
-import datetime as dt
 import requests
-from django.template.loader import render_to_string
+import datetime as dt
+from datetime import date
+from web_app.forms import ProfileImageForm
+from django.conf import settings
+from services.OtpService import OtpService
+from services.UserService import UserService
+from django.shortcuts import render, redirect
 from services.ReferService import ReferService
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
+from dateutil.relativedelta import relativedelta
 from services.CouponService import CouponService
-#from web_app.models import Refer
+from django.http import HttpResponse, JsonResponse
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 
 
 User = UserService()
 Refer = ReferService()
 Coupon = CouponService()
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 def loggedin(fun):
@@ -63,12 +53,12 @@ def validate_input(username, password):
         return False
     return True
 
-def loginView(request,user_type=None):
+def loginView(request, user_type=None):
     if 'loggedin_user' in request.session:
         del request.session['loggedin_user']
 
     user_type_id = 1
-    if user_type=='dr':
+    if user_type == 'dr':
         user_type_id = 2
     return render(request,"web_app/login.html", {'user_type_id':user_type_id})
 
@@ -347,8 +337,8 @@ def clinicAvailibilityView(request):
 
 @csrf_exempt
 def registerUser(request):
-
     req = request.POST
+    # Todo: It doesn't make sense to create a new dict to store request elements.
     data = {}
     data['user_first_name'] = req.get('first_name')
     data['user_last_name'] = req.get('last_name')
@@ -364,8 +354,9 @@ def registerUser(request):
         is_referred = Refer.get_refer(
             {'email': data['user_email'], 'referral_code': data['referral_code']})
         if not is_referred:
+            # TODO: This is a bug. UI shows emails already exists and marks the email field as red
             return JsonResponse({'resp': 'Invalid referral code', 'status': 'failed'})
-    user = User.get_user({'user_email':data['user_email'],'user_type_id':data['user_type_id'], 'is_active':1})
+    user = User.get_user({'user_email': data['user_email'],'user_type_id': data['user_type_id'], 'is_active':1})
     if user:
         return JsonResponse({'resp': 'User already exist', 'status': 'failed'})
 

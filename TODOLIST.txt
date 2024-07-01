@@ -1,0 +1,7 @@
+[MRDS_001]
+1. Remove unused imports.
+2. Setup Postgres
+3. Create migrations
+4. Update database script
+5. Fix circular imports in web_app
+6. Fix user table name in web_app
