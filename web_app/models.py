@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
 
 class User_Type(models.Model):
     user_type_id = models.IntegerField()
@@ -30,14 +29,12 @@ class User(models.Model):
     referral_code = models.CharField(max_length=10,null=True, default=None)
 
     class Meta:
-        db_table = "user"
-
+        db_table = "mrds_user"
 
 
 class User_Address(models.Model):
     user_address_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
-    address_1 = models.CharField(max_length=255)
     address_1 = models.CharField(max_length=255)
     address_2 = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
@@ -48,7 +45,7 @@ class User_Address(models.Model):
     longitude = models.CharField(max_length=50)
     address_type = models.SmallIntegerField()
     is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = "user_address"
@@ -62,7 +59,7 @@ class User_Profile(models.Model):
     modified_date = models.DateTimeField(default=timezone.now)
 
     is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = "user_profile"
@@ -94,7 +91,7 @@ class User_Qualification(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = "user_qualification"
@@ -106,7 +103,7 @@ class User_Specialization(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = "user_specialization"
@@ -142,7 +139,7 @@ class Subscription(models.Model):
 
 class User_Subscription(models.Model):
     user_subscription_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     subscription_id = models.IntegerField()
     subscription_start = models.DateTimeField(default=timezone.now)
     subscription_end = models.DateTimeField(default=timezone.now)
@@ -153,7 +150,7 @@ class User_Subscription(models.Model):
 
 class User_Consultation(models.Model):
     user_consult_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     user_consult_by = models.IntegerField()
     action_date = models.DateTimeField(default=timezone.now)
     action = models.CharField(max_length=50)
@@ -162,6 +159,7 @@ class User_Consultation(models.Model):
     is_active = models.BooleanField(default=True)
     class Meta:
         db_table = "user_consultation"
+
 
 class User_Payment(models.Model):
     user_payment_id = models.AutoField(primary_key=True)
@@ -209,6 +207,7 @@ class User_Appointment(models.Model):
     is_active = models.BooleanField(default=True)
     class Meta:
         db_table = "user_appointment"
+
 
 class ProfilePic(models.Model):
     profileName = models.CharField(max_length=50)
