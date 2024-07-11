@@ -8,3 +8,8 @@
 
 [MRDS_0011]
 1. Revisit the Register and login steps.
+2. Update all raw SQL queries to ORM. This makes code conceptually clear and easy to understand.
+3. Revisit the profile and search pages as well.
+
+[MRDS-0012]
+1. Fix errors in appointment booking step.
