@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class User_Type(models.Model):
+class UserType(models.Model):
     user_type_id = models.IntegerField()
     user_type = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
@@ -27,7 +27,7 @@ class User(models.Model):
     last_login_at = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     user_type_id = models.SmallIntegerField()
-    referral_code = models.CharField(max_length=10,null=True, default=None)
+    referral_code = models.CharField(max_length=10, null=True, default=None)
 
     class Meta:
         db_table = "mrds_user"
@@ -36,7 +36,7 @@ class User(models.Model):
         return self.user_name
 
 
-class User_Address(models.Model):
+class UserAddress(models.Model):
     user_address_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     address_1 = models.CharField(max_length=255)
@@ -55,7 +55,7 @@ class User_Address(models.Model):
         db_table = "user_address"
 
 
-class User_Profile(models.Model):
+class UserProfile(models.Model):
     user_profile_id = models.AutoField(primary_key=True)
     about_me = models.TextField(blank=True)
     total_experience = models.IntegerField(default=0)
@@ -92,7 +92,7 @@ class Specialization(models.Model):
         db_table = "specialization"
 
 
-class User_Qualification(models.Model):
+class UserQualification(models.Model):
     user_qualification_id = models.AutoField(primary_key=True)
     qualification_id = models.IntegerField()
     documents = models.CharField(max_length=100)
@@ -103,11 +103,9 @@ class User_Qualification(models.Model):
 
     class Meta:
         db_table = "user_qualification"
-        default_related_name = "user_qualification"
 
 
-class User_Specialization(models.Model):
-    # TODO: specialization_id is not a FK relationship with specialization table
+class UserSpecialization(models.Model):
     user_specialization_id = models.AutoField(primary_key=True)
     specialization_id = models.IntegerField()
     documents = models.CharField(max_length=100)
@@ -118,7 +116,6 @@ class User_Specialization(models.Model):
 
     class Meta:
         db_table = "user_specialization"
-        default_related_name = "user_specialization"
 
 
 class Package(models.Model):
@@ -130,17 +127,15 @@ class Package(models.Model):
 
     class Meta:
         db_table = "package"
-        default_related_name = "package"
 
 
-class User_Package(models.Model):
+class UserPackage(models.Model):
     user_package_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField()
     package_id = models.IntegerField()
 
     class Meta:
         db_table = "user_package"
-        default_related_name = "user_package"
 
 
 class Subscription(models.Model):
@@ -154,9 +149,9 @@ class Subscription(models.Model):
 
     class Meta:
         db_table = "subscription"
-        default_related_name = "subscription"
 
-class User_Subscription(models.Model):
+
+class UserSubscription(models.Model):
     user_subscription_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     subscription_id = models.IntegerField()
@@ -167,7 +162,8 @@ class User_Subscription(models.Model):
     class Meta:
         db_table = "user_subscription"
 
-class User_Consultation(models.Model):
+
+class UserConsultation(models.Model):
     user_consult_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     user_consult_by = models.IntegerField()
@@ -176,11 +172,12 @@ class User_Consultation(models.Model):
     comments = models.TextField(blank=True)
     user_referred_to = models.IntegerField(null = True)
     is_active = models.BooleanField(default=True)
+
     class Meta:
         db_table = "user_consultation"
 
 
-class User_Payment(models.Model):
+class UserPayment(models.Model):
     user_payment_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
     appointment_id = models.IntegerField()
@@ -195,15 +192,18 @@ class User_Payment(models.Model):
     class Meta:
         db_table = "user_payment"
 
-class User_Clinic(models.Model):
+
+class UserClinic(models.Model):
     user_clinic_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
     address_id = models.IntegerField()
     consultation_fees = models.IntegerField(default=0)
+
     class Meta:
         db_table = "user_clinic"
 
-class User_Clinic_Availibility(models.Model):
+
+class UserClinicAvailibility(models.Model):
     User_Clinic_Availibility = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
     day = models.CharField(max_length=50)
@@ -211,10 +211,12 @@ class User_Clinic_Availibility(models.Model):
     end_time = models.CharField(max_length=50)
     duration = models.IntegerField()
     is_available = models.BooleanField(default=True)
+
     class Meta:
         db_table = "user_clinic_availibility"
 
-class User_Appointment(models.Model):
+
+class UserAppointment(models.Model):
     user_appointment_id = models.AutoField(primary_key=True)
     patient_id = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
@@ -224,6 +226,7 @@ class User_Appointment(models.Model):
     appointment_status = models.IntegerField(default=1)
     payment_type = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
+
     class Meta:
         db_table = "user_appointment"
 
@@ -232,7 +235,8 @@ class ProfilePic(models.Model):
     profileName = models.CharField(max_length=50)
     profile_Main_Img = models.ImageField(upload_to='images/')
 
-class User_Patient_Refer(models.Model):
+
+class UserPatientRefer(models.Model):
     user_patient_refer_id = models.AutoField(primary_key=True)
     user_appointment_id = models.IntegerField()
     patient_id = models.IntegerField()
@@ -241,6 +245,6 @@ class User_Patient_Refer(models.Model):
     refer_notes = models.CharField(max_length=200)
     refer_date = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
+
     class Meta:
         db_table = "user_patient_refer"
-

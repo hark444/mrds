@@ -3,16 +3,16 @@ SET FOREIGN_KEY_CHECKS=0;
 #truncate user;
 
 truncate user_type;
-INSERT INTO `user_type`
+INSERT INTO user_type
 (
-`user_type_id`,
-`user_type`,
-`is_active`)
+user_type_id,
+user_type,
+is_active)
 VALUES
-('1', 'Patient', 1),
-('2', 'PT',1),
-('3', 'DR', 1),
-('4', 'Admin', 1);
+('1', 'Patient', true),
+('2', 'PT', true),
+('3', 'DR', true),
+('4', 'Admin', true);
 
 truncate specialization;
 INSERT INTO specialization
@@ -93,5 +93,5 @@ VALUES
 ('Soft Tissue Mobilization Techniques','Soft Tissue Mobilization Techniques',1.5, true);
 
 
-INSERT INTO user (user_id, user_first_name, user_last_name, user_email, user_mobile, gender, dob, user_created_date, user_modified_date, last_login_at, is_active, user_type_id, profile_image_name, password, user_name, referral_code) VALUES
-(1, 'MRDS', 'Admin', 'myreferui@gmail.com', '8879878998', '', '', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', '0000-00-00 00:00:00.000000', true, 4, NULL, 'admin@123', 'admin', '');
+INSERT INTO mrds_user (user_id, user_first_name, user_last_name, user_email, user_mobile, gender, dob, user_created_date, user_modified_date, last_login_at, is_active, user_type_id, profile_image_name, password, user_name, referral_code) VALUES
+(1, 'MRDS', 'Admin', 'myreferui@gmail.com', '8879878998', '', '', now(), now(), now(), true, 4, NULL, 'admin@123', 'admin', '');

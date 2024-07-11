@@ -13,3 +13,5 @@
 
 [MRDS-0012]
 1. Fix errors in appointment booking step.
+2. Camel Casing of Model Names and refactoring.
+3. Fix the migrations and combine into a single file.

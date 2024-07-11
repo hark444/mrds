@@ -1,11 +1,9 @@
-from web_app.models import User, User_Type, User_Address, \
-    User_Profile, User_Qualification, User_Specialization, \
-    Qualification, Specialization, Subscription, User_Subscription,\
-    User_Clinic_Availibility, User_Appointment, User_Payment, User_Patient_Refer
+from web_app.models import User, UserType, UserAddress, \
+    UserProfile, UserQualification, UserSpecialization, \
+    Qualification, Specialization, Subscription, UserSubscription,\
+    UserClinicAvailibility, UserAppointment, UserPayment, UserPatientRefer
 import datetime as dt
 from django.db.models import Q
-
-
 
 
 class UserService():
@@ -37,48 +35,48 @@ class UserService():
         )
 
     def delete_user(self, where):
-        User_Address.objects.filter(**where).update(is_active=0)
+        UserAddress.objects.filter(**where).update(is_active=0)
 
 
     ######## Profile ##########
 
     def get_user_profile(self, where):
         try:
-            user = User_Profile.objects.get(**where)
+            user = UserProfile.objects.get(**where)
 
             if user:
                 return user
             else:
                 return False
-        except User_Profile.DoesNotExist:
+        except UserProfile.DoesNotExist:
             return False
 
     def update_user_profile(self, data, where):
-        obj, created = User_Profile.objects.update_or_create(
+        obj, created = UserProfile.objects.update_or_create(
             user_id=where['user_id'], is_active=1,
             defaults=data,
         )
 
     def add_user_profile(self, data={}):
-        Obj = User_Profile(**data)
+        Obj = UserProfile(**data)
         Obj.save()
 
 
     ######## Address #############
     def get_user_address(self, where):
         try:
-            user = User_Address.objects.get(**where)
+            user = UserAddress.objects.get(**where)
 
             if user:
                 return user
             else:
                 return False
-        except User_Address.DoesNotExist:
+        except UserAddress.DoesNotExist:
             return False
 
 
     def update_user_address(self, data, where):
-        obj, created = User_Address.objects.update_or_create(
+        obj, created = UserAddress.objects.update_or_create(
             user_id=where['user_id'], is_active=1,
             defaults=data,
         )
@@ -95,7 +93,7 @@ class UserService():
             return False
 
     def get_user_qualification(self, where={"is_active": 1}, field=[]):
-        result = User_Qualification.objects.filter(**where)
+        result = UserQualification.objects.filter(**where)
         if field:
             result.values(*field)
 
@@ -105,11 +103,11 @@ class UserService():
             return False
 
     def add_user_qualification(self, data):
-        Obj = User_Qualification(**data)
+        Obj = UserQualification(**data)
         Obj.save()
 
     def delete_user_qualification(self, where):
-        User_Qualification.objects.filter(**where).delete()
+        UserQualification.objects.filter(**where).delete()
 
 
 
@@ -124,7 +122,7 @@ class UserService():
             return False
 
     def get_user_specialization(self, where={"is_active": 1}, field=[]):
-        result = User_Specialization.objects.filter(**where)
+        result = UserSpecialization.objects.filter(**where)
         if field:
             result.values(*field)
         if result:
@@ -133,7 +131,7 @@ class UserService():
             return False
 
     def get_user_specialization_name(self, where={"is_active": 1}, field=[]):
-        result = User_Specialization.objects.filter(**where).select_related('Specialization')
+        result = UserSpecialization.objects.filter(**where).select_related('Specialization')
         print(result.query)
         if field:
             result.values(*field)
@@ -144,11 +142,11 @@ class UserService():
 
 
     def add_user_specialization(self, data):
-        Obj = User_Specialization(**data)
+        Obj = UserSpecialization(**data)
         Obj.save()
 
     def delete_user_specialization(self, where):
-        User_Specialization.objects.filter(**where).delete()
+        UserSpecialization.objects.filter(**where).delete()
 
     ######## Search #############
     def search_user(self, keyword, city, user_id=None):
@@ -156,9 +154,9 @@ class UserService():
             specialization_obj = Specialization.objects.filter(specialization__contains=keyword).values_list(
                 'specialization_id', flat=True
             )
-            user_specialization_obj = User_Specialization.objects.filter(specialization_id__in=specialization_obj)
+            user_specialization_obj = UserSpecialization.objects.filter(specialization_id__in=specialization_obj)
 
-            user_obj = User.objects.filter(user_specialization__in=user_specialization_obj)
+            user_obj = User.objects.filter(userspecialization__in=user_specialization_obj)
             if user_id:
                 user_obj = user_obj.exclude(user_id=user_id)
 
@@ -171,7 +169,7 @@ class UserService():
                 user_data['profile_image_name'] = user.profile_image_name
 
                 # User Qualification Data
-                qualification_queryset = user.user_qualification.first()
+                qualification_queryset = user.userqualification_set.first()
                 if qualification_queryset:
                     user_data['qualification'] = qualification_queryset.qualification
 
@@ -181,14 +179,14 @@ class UserService():
                 user_data['specialization'] = ', '.join(specialization_values)
 
                 # User Profile Data
-                user_profile_queryset = user.user_profile_set.first()
+                user_profile_queryset = user.userprofile_set.first()
                 if user_profile_queryset:
                     user_data['total_experience'] = user_profile_queryset.total_experience
                     user_data['about_me'] = user_profile_queryset.about_me
                     user_data['consultation_fees'] = user_profile_queryset.consultation_fees
 
                 # User Address Data
-                user_address_queryset = user.user_address_set.first()
+                user_address_queryset = user.useraddress_set.first()
                 if user_address_queryset:
                     user_data['title'] = user_address_queryset.title
                     user_data['address_1'] = user_address_queryset.address_1
@@ -237,7 +235,7 @@ class UserService():
             return False
 
     def get_user_subscription(self, where={"is_active": 1}, field=[]):
-        result = User_Subscription.objects.filter(**where)
+        result = UserSubscription.objects.filter(**where)
         if field:
             result.values(*field)
         if result:
@@ -246,7 +244,7 @@ class UserService():
             return False
 
     def get_user_clinic_availibility(self, where={"is_active": 1}, field=[]):
-        result = User_Clinic_Availibility.objects.filter(**where)
+        result = UserClinicAvailibility.objects.filter(**where)
         if field:
             result.values(*field)
         if result:
@@ -255,16 +253,16 @@ class UserService():
             return False
 
     def update_user_subscription(self, data, where):
-        obj, created = User_Subscription.objects.update_or_create(
+        obj, created = UserSubscription.objects.update_or_create(
             user_id=where['user_id'], is_active=1,
             defaults=data,
         )
 
     def delete_user_subscription(self, where):
-        User_Subscription.objects.filter(**where).delete()
+        UserSubscription.objects.filter(**where).delete()
 
     def update_user_clinic_availibiliy(self, data, where):
-        obj, created = User_Clinic_Availibility.objects.update_or_create(
+        obj, created = UserClinicAvailibility.objects.update_or_create(
             user_id=where['user_id'],day=where['day'],
             defaults=data,
         )
@@ -281,25 +279,25 @@ class UserService():
             user_data['profile_image_name'] = user_obj.profile_image_name
 
             # User Qualification Data
-            qualification_queryset = user_obj.user_qualification.first()
+            qualification_queryset = user_obj.userqualification_set.first()
             if qualification_queryset:
                 user_data['qualification'] = qualification_queryset.qualification
 
             # User Specialization Data
-            specialization_queryset = user_obj.user_specialization.values_list('specialization_id', flat=True)
+            specialization_queryset = user_obj.userspecialization_set.values_list('specialization_id', flat=True)
             if specialization_queryset:
                 specializations = Specialization.objects.filter(specialization_id__in=specialization_queryset).values_list('specialization', flat=True)
                 user_data['specialization'] = ', '.join(specializations)
 
             # User Profile Data
-            user_profile_queryset = user_obj.user_profile_set.first()
+            user_profile_queryset = user_obj.userprofile_set.first()
             if user_profile_queryset:
                 user_data['total_experience'] = user_profile_queryset.total_experience
                 user_data['about_me'] = user_profile_queryset.about_me
                 user_data['consultation_fees'] = user_profile_queryset.consultation_fees
 
             # User Address Data
-            user_address_queryset = user_obj.user_address_set.first()
+            user_address_queryset = user_obj.useraddress_set.first()
             if user_address_queryset:
                 user_data['title'] = user_address_queryset.title
                 user_data['address_1'] = user_address_queryset.address_1
@@ -327,13 +325,13 @@ class UserService():
 
     # User appointment
     def set_user_appointment(self, data):
-        Obj = User_Appointment(**data)
+        Obj = UserAppointment(**data)
         Obj.save()
         return Obj.objects.last().user_appointment_id
 
     def add_or_update_user_appointment(self, data, where):
         user_appointment_id = where['user_appointment_id']
-        appointment, created = User_Appointment.objects.update_or_create(
+        appointment, created = UserAppointment.objects.update_or_create(
             user_appointment_id=user_appointment_id, is_active=1,
             defaults=data,
         )
@@ -344,7 +342,7 @@ class UserService():
 
 
     def get_user_appointment(self, where={"is_active": 1}, field=[]):
-        result = User_Appointment.objects.filter(**where)
+        result = UserAppointment.objects.filter(**where)
         print(result.query)
         print(result)
         if field:
@@ -355,11 +353,11 @@ class UserService():
             return False
 
     def get_booked_slot(self, user_id, field=[]):
-        result = User_Appointment.objects.filter(Q(is_active = 1),Q(user_id = user_id),
+        result = UserAppointment.objects.filter(Q(is_active = 1), Q(user_id = user_id),
                                                 Q(appointment_status=2)
-                                              | Q(appointment_status=4)
-                                              | Q(appointment_status=5)
-                                              | Q(appointment_status=6),)
+                                                | Q(appointment_status=4)
+                                                | Q(appointment_status=5)
+                                                | Q(appointment_status=6), )
         print(result.query)
         print(result)
         if field:
@@ -372,7 +370,7 @@ class UserService():
     def update_user_appointment(self, where, data):
         print(where)
         print(data)
-        result = User_Appointment.objects.filter(**where).update(**data)
+        result = UserAppointment.objects.filter(**where).update(**data)
         print(result.query)
 
     '''
@@ -387,19 +385,19 @@ class UserService():
     9 = DR_REFERRED
     '''
     def update_user_appointment_status(self, user_appointment_id, status):
-        result = User_Appointment.objects.filter(user_appointment_id=user_appointment_id).update(appointment_status=status);
+        result = UserAppointment.objects.filter(user_appointment_id=user_appointment_id).update(appointment_status=status);
 
     def update_user_appointment_datetime(self, user_appointment_id, datetime):
-        result = User_Appointment.objects.filter(user_appointment_id=user_appointment_id).update(
+        result = UserAppointment.objects.filter(user_appointment_id=user_appointment_id).update(
             appointment_datetime=datetime);
 
     # User payment
     def set_user_payment(self, data):
-        Obj = User_Payment(**data)
+        Obj = UserPayment(**data)
         Obj.save()
 
     def get_user_payment(self, where={"is_active": 1}, field=[]):
-        result = User_Payment.objects.filter(**where)
+        result = UserPayment.objects.filter(**where)
         if field:
             result.values(*field)
         if result:
@@ -408,16 +406,16 @@ class UserService():
             return False
 
     def update_user_payment(self, where, data):
-        User_Payment.objects.filter(**where).update(**data)
+        UserPayment.objects.filter(**where).update(**data)
 
 # User payment
     def set_dr_patient_refer(self, data):
-        Obj = User_Patient_Refer(**data)
+        Obj = UserPatientRefer(**data)
         Obj.save()
         #return Obj.objects.last().user_patient_refer_id
 
     def get_dr_patient_refer(self, where={"is_active": 1}, field=[]):
-        result = User_Patient_Refer.objects.filter(**where)
+        result = UserPatientRefer.objects.filter(**where)
         if field:
             result.values(*field)
         if result:
@@ -426,9 +424,9 @@ class UserService():
             return False
 
     def update__dr_patient_refer(self, where, data):
-        User_Patient_Refer.objects.filter(**where).update(**data)
+        UserPatientRefer.objects.filter(**where).update(**data)
 
 
     def is_coupon_applied(self, where={}):
-        result = User_Payment.objects.filter(**where).count()
+        result = UserPayment.objects.filter(**where).count()
         return result
