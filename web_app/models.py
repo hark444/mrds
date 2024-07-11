@@ -10,6 +10,7 @@ class User_Type(models.Model):
     class Meta:
         db_table = "user_type"
 
+
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=50)
@@ -31,6 +32,9 @@ class User(models.Model):
     class Meta:
         db_table = "mrds_user"
 
+    def __repr__(self):
+        return self.user_name
+
 
 class User_Address(models.Model):
     user_address_id = models.AutoField(primary_key=True)
@@ -50,6 +54,7 @@ class User_Address(models.Model):
     class Meta:
         db_table = "user_address"
 
+
 class User_Profile(models.Model):
     user_profile_id = models.AutoField(primary_key=True)
     about_me = models.TextField(blank=True)
@@ -57,12 +62,12 @@ class User_Profile(models.Model):
     consultation_fees = models.IntegerField(default=0)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
-
     is_active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = "user_profile"
+
 
 class Qualification(models.Model):
     qualification_id = models.AutoField(primary_key=True)
@@ -74,7 +79,9 @@ class Qualification(models.Model):
     class Meta:
         db_table = "qualification"
 
+
 class Specialization(models.Model):
+    # TODO: This is a major bug. Specialization_id is defined as Charfield elsewhere.
     specialization_id = models.AutoField(primary_key=True)
     specialization = models.CharField(max_length=100)
     keywords = models.CharField(max_length=255)
@@ -84,9 +91,10 @@ class Specialization(models.Model):
     class Meta:
         db_table = "specialization"
 
+
 class User_Qualification(models.Model):
     user_qualification_id = models.AutoField(primary_key=True)
-    qualification_id = models.CharField(max_length=100)
+    qualification_id = models.IntegerField()
     documents = models.CharField(max_length=100)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
@@ -95,10 +103,13 @@ class User_Qualification(models.Model):
 
     class Meta:
         db_table = "user_qualification"
+        default_related_name = "user_qualification"
+
 
 class User_Specialization(models.Model):
+    # TODO: specialization_id is not a FK relationship with specialization table
     user_specialization_id = models.AutoField(primary_key=True)
-    specialization_id = models.CharField(max_length=100)
+    specialization_id = models.IntegerField()
     documents = models.CharField(max_length=100)
     created_date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(default=timezone.now)
@@ -107,6 +118,8 @@ class User_Specialization(models.Model):
 
     class Meta:
         db_table = "user_specialization"
+        default_related_name = "user_specialization"
+
 
 class Package(models.Model):
     package_id = models.AutoField(primary_key=True)
@@ -117,13 +130,18 @@ class Package(models.Model):
 
     class Meta:
         db_table = "package"
+        default_related_name = "package"
+
 
 class User_Package(models.Model):
     user_package_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField()
-    package_id =  models.IntegerField()
+    package_id = models.IntegerField()
+
     class Meta:
         db_table = "user_package"
+        default_related_name = "user_package"
+
 
 class Subscription(models.Model):
     subscription_id = models.AutoField(primary_key=True)
@@ -136,6 +154,7 @@ class Subscription(models.Model):
 
     class Meta:
         db_table = "subscription"
+        default_related_name = "subscription"
 
 class User_Subscription(models.Model):
     user_subscription_id = models.AutoField(primary_key=True)

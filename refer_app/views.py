@@ -113,7 +113,6 @@ def ajaxRefer(request):
     data['refer_notes'] = "Diagnosis: "+req.get('diagnosis', '')+"<br>"+"Treatment: "+req.get('treatment', '')+"<br>"
     User.set_dr_patient_refer(data)
 
-
     data = {}
     data['first_name'] = req.get('first_name')
     data['last_name'] = req.get('last_name')

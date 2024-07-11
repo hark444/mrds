@@ -71,7 +71,9 @@ def searchView(request):
     print(search_keyword)
     result = User.search_user(search_keyword, search_city)
     print(result)
-    return render(request,"web_app/search-page.html", {'data':{'keyword':search_keyword, 'city':search_city},'result': result,'user_data':user_data})
+    return render(request, "web_app/search-page.html",
+                  {'data': {'keyword': search_keyword, 'city': search_city}, 'result': result, 'user_data': user_data}
+                  )
     #return render(request, "web_app/search-page.html",{})
 
 @csrf_exempt
@@ -211,16 +213,16 @@ def checkStatusView(request):
 def doctorProfileView(request, dr_id):
     user_data = request.session.get('loggedin_user', {})
     data = User.get_user_all_info(dr_id)
-    print(data.profile_image_name)
     ca_header, ca_slot = getAppointmentSlots(dr_id)
     profile_template = "web_app/profile-dr.html"
 
-    return render(request, profile_template, {'user_data':user_data, 'data' : data, 'clinicAvailibility': {
-        'header':ca_header, 'time_slot':ca_slot}})
+    return render(request, profile_template, {'user_data': user_data, 'data': data, 'clinicAvailibility': {
+        'header': ca_header, 'time_slot': ca_slot}})
 
 
 @loggedin
-def profileView(request):
+def profile_view(request):
+
     user_data = request.session.get('loggedin_user', {})
     data = User.get_user_all_info(user_data['id'])
     ca_header, ca_slot = {}, {}
@@ -230,9 +232,8 @@ def profileView(request):
     else:
         ca_header, ca_slot = getAppointmentSlots(user_data['id'])
 
-
-    return render(request, profile_template, {'user_data':user_data, 'data' : data, 'clinicAvailibility': {
-        'header':ca_header, 'time_slot':ca_slot}})
+    context = {'user_data': user_data, 'data': data, 'clinicAvailibility': {'header': ca_header, 'time_slot': ca_slot}}
+    return render(request, profile_template, context)
 
 @csrf_exempt
 def showAppointmentAjax(request):
@@ -338,8 +339,7 @@ def clinicAvailibilityView(request):
 @csrf_exempt
 def registerUser(request):
     req = request.POST
-    # Todo: It doesn't make sense to create a new dict to store request elements.
-    data = {}
+    data = dict()
     data['user_first_name'] = req.get('first_name')
     data['user_last_name'] = req.get('last_name')
     data['user_email'] = req.get('email_address')
@@ -398,12 +398,8 @@ def registerUser(request):
 
 @csrf_exempt
 def loginUser(request):
-    print(request.POST)
     req = request.POST
-    data = {}
-
-    #perform server side validation on email
-    email = req.get('email')
+    data = dict()
 
     data['user_name'] = req.get('email')
     data['password'] = req.get('password')
@@ -426,43 +422,38 @@ def loginUser(request):
 @loggedin
 def updateUser(request):
     data = request.POST
-    action=data.get('action')
+    action = data.get('action')
     where = {'user_id': request.session['loggedin_user']['id']}
 
     if action == 'update_personal_info':
-
-        user={}
-
-        user['user_first_name']=data.get('first_name')
-        user['user_last_name']=data.get('last_name')
-        user['gender']=data.get('gender')
-        user['dob']=data.get('dob')
-        user['user_email']=data.get('email')
-        User.update_user(user,where)
+        user = dict()
+        user['user_first_name'] = data.get('first_name')
+        user['user_last_name'] = data.get('last_name')
+        user['gender'] = data.get('gender')
+        user['dob'] = data.get('dob')
+        user['user_email'] = data.get('email')
+        User.update_user(user, where)
 
     if action == 'update_profile_info':
-        user_profile={}
-        user_profile['about_me']=data.get('about_me')
-        user_profile['total_experience']=data.get('total_experience')
-        user_profile['consultation_fees']=data.get('consultation_fees')
-        User.update_user_profile(user_profile,where)
-
+        user_profile = dict()
+        user_profile['about_me'] = data.get('about_me')
+        user_profile['total_experience'] = data.get('total_experience')
+        user_profile['consultation_fees'] = data.get('consultation_fees')
+        User.update_user_profile(user_profile, where)
 
     if action == 'update_address_info':
-
-        user_address={}
-
-        user_address['title']=data.get('title')
-        user_address['address_1']=data.get('address_1')
-        user_address['address_2']=data.get('address_2')
-        user_address['city']=data.get('city')
-        user_address['dist']=data.get('district')
-        user_address['state']=data.get('state')
-        user_address['pincode']=data.get('pincode')
-        user_address['address_type']=1
-        user_address['is_active']=1
-        where={'user_id':request.session['loggedin_user']['id']}
-        User.update_user_address(user_address,where)
+        user_address = dict()
+        user_address['title'] = data.get('title')
+        user_address['address_1'] = data.get('address_1')
+        user_address['address_2'] = data.get('address_2')
+        user_address['city'] = data.get('city')
+        user_address['dist'] = data.get('district')
+        user_address['state'] = data.get('state')
+        user_address['pincode'] = data.get('pincode')
+        user_address['address_type'] = 1
+        user_address['is_active'] = 1
+        where = {'user_id':request.session['loggedin_user']['id']}
+        User.update_user_address(user_address, where)
 
     if action == 'update_professional_info':
         where = {'user_id': request.session['loggedin_user']['id']}
@@ -470,28 +461,26 @@ def updateUser(request):
         User.delete_user_specialization(where)
         qualification_list = data.get('qualification').split(',')
         for q_id in qualification_list:
-            user_qualification={}
-            user_qualification['qualification_id']=q_id
-            user_qualification['user_id']=request.session['loggedin_user']['id']
+            user_qualification = dict()
+            user_qualification['qualification_id'] = q_id
+            user_qualification['user_id'] = request.session['loggedin_user']['id']
             user_qualification['is_active'] = 1
             User.add_user_qualification(user_qualification)
 
         specialization_list = data.get('specialization').split(',')
         for s_id in specialization_list:
-            user_specialization={}
-            user_specialization['specialization_id']=s_id
+            user_specialization = dict()
+            user_specialization['specialization_id'] = s_id
             user_specialization['user_id'] = request.session['loggedin_user']['id']
             user_specialization['is_active'] = 1
             User.add_user_specialization(user_specialization)
 
     if action == 'update_subscription_info':
-
         today = date.today()
-
-        user_subscription = {}
+        user_subscription = dict()
         user_subscription['subscription_id'] = data.get('subscription_id')
         user_subscription['user_id'] = request.session['loggedin_user']['id']
-        where_s={"subscription_id": data.get('subscription_id'), "is_active": 1}
+        where_s = {"subscription_id": data.get('subscription_id'), "is_active": 1}
         subscription = User.get_subscription(where_s, field=['subscription_validity'])
         validity = int(subscription[0].subscription_validity)
         subscription_start = today.strftime("%Y-%m-%d 00:00:00")
@@ -504,23 +493,17 @@ def updateUser(request):
         User.update_user_subscription(user_subscription, where)
 
     if action == 'update_availability_info':
-        User_Clinic_Availibility ={}
-
-        availDict = json.loads(data.get('avail'))
-        typeAvail = type(availDict)
-        for day, valStr in availDict.items():
-
-            User_Clinic_Availibility['day']=day
+        user_clinic_availibility = dict()
+        avail_dict = json.loads(data.get('avail'))
+        for day, valStr in avail_dict.items():
+            user_clinic_availibility['day'] = day
             valList = valStr.split(",")
-            User_Clinic_Availibility['start_time']=valList[0]
-            User_Clinic_Availibility['end_time']=valList[1]
-            User_Clinic_Availibility['duration']=valList[2]
-            User_Clinic_Availibility['is_available']=valList[3]
-            print(User_Clinic_Availibility)
-            where = {'user_id': request.session['loggedin_user']['id'], 'day':day}
-            User.update_user_clinic_availibiliy(User_Clinic_Availibility,where)
-            print("-----------------------")
-            print("mydata",data)
+            user_clinic_availibility['start_time'] = valList[0]
+            user_clinic_availibility['end_time'] = valList[1]
+            user_clinic_availibility['duration'] = valList[2]
+            user_clinic_availibility['is_available'] = valList[3]
+            where = {'user_id': request.session['loggedin_user']['id'], 'day': day}
+            User.update_user_clinic_availibiliy(user_clinic_availibility, where)
 
     return JsonResponse({'resp': data})
 
@@ -529,8 +512,7 @@ def updateUser(request):
 @loggedin
 def profile_image_view(request):
     if request.method == 'POST':
-        form =ProfileImageForm(request.POST, request.FILES)
-
+        form = ProfileImageForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('success')

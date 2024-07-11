@@ -25,7 +25,6 @@ class UserService():
         except User.DoesNotExist:
             return False
 
-
     def add_user(self, data={}):
         Obj = User(**data)
         Obj.save()
@@ -42,6 +41,7 @@ class UserService():
 
 
     ######## Profile ##########
+
     def get_user_profile(self, where):
         try:
             user = User_Profile.objects.get(**where)
@@ -152,31 +152,57 @@ class UserService():
 
     ######## Search #############
     def search_user(self, keyword, city, user_id=None):
-        where = ''
-        print("user"+str(user_id))
-        if user_id:
-            where = "AND u.user_id != {0}".format(user_id)
-        print("-----"+where)
-        query = "select * from ( select u.user_id, u.user_first_name , u.user_last_name, u.profile_image_name,"\
-                         " (group_concat(DISTINCT  q.qualification)) as qualification, "\
-                         " group_concat(DISTINCT s.specialization) as specialization, "\
-                        " up.total_experience, up.about_me, up.consultation_fees,  " \
-                        " ua.title, ua.city, ua.state " \
-                         " from mrds_v1.user u "\
-                         " left join mrds_v1.user_address ua on ua.user_id = u.user_id" \
-                        " left join mrds_v1.user_profile up on up.user_id = u.user_id" \
-                        " right join user_specialization us on u.user_id = us.user_id"\
-                         " left join specialization s on s.specialization_id = us.specialization_id"\
-                         " right join user_qualification uq on u.user_id = uq.user_id"\
-                         " left join qualification q on q.qualification_id = uq.qualification_id"\
-                         " where u.user_type_id in (2, 3) and ua.city LIKE '%%{1}%%' {2}"\
-                         " group by u.user_id ) as s1 where specialization  LIKE  '%%{0}%%' or qualification  LIKE  '%%{0}%%' ".format(keyword, city, where)
+        if keyword or city or user_id:
+            specialization_obj = Specialization.objects.filter(specialization__contains=keyword).values_list(
+                'specialization_id', flat=True
+            )
+            user_specialization_obj = User_Specialization.objects.filter(specialization_id__in=specialization_obj)
 
-        print(query)
-        result = User.objects.raw(query)
-        return result
+            user_obj = User.objects.filter(user_specialization__in=user_specialization_obj)
+            if user_id:
+                user_obj = user_obj.exclude(user_id=user_id)
 
-        ######## Search #############
+            all_user_data = []
+            for user in user_obj:
+                user_data = dict()
+                user_data['user_id'] = user.user_id
+                user_data['user_first_name'] = user.user_first_name
+                user_data['user_last_name'] = user.user_last_name
+                user_data['profile_image_name'] = user.profile_image_name
+
+                # User Qualification Data
+                qualification_queryset = user.user_qualification.first()
+                if qualification_queryset:
+                    user_data['qualification'] = qualification_queryset.qualification
+
+                # User Specialization Data
+                specialization_values = Specialization.objects.filter(
+                    specialization_id__in=specialization_obj).values_list('specialization', flat=True)
+                user_data['specialization'] = ', '.join(specialization_values)
+
+                # User Profile Data
+                user_profile_queryset = user.user_profile_set.first()
+                if user_profile_queryset:
+                    user_data['total_experience'] = user_profile_queryset.total_experience
+                    user_data['about_me'] = user_profile_queryset.about_me
+                    user_data['consultation_fees'] = user_profile_queryset.consultation_fees
+
+                # User Address Data
+                user_address_queryset = user.user_address_set.first()
+                if user_address_queryset:
+                    user_data['title'] = user_address_queryset.title
+                    user_data['address_1'] = user_address_queryset.address_1
+                    user_data['address_2'] = user_address_queryset.address_2
+                    user_data['pincode'] = user_address_queryset.pincode
+                    user_data['city'] = user_address_queryset.city
+                    user_data['state'] = user_address_queryset.state
+
+                all_user_data.append(user_data)
+
+            return all_user_data
+        else:
+            return ""
+
 
     def referred_doctor_list(self):
         query = "select * from ( select u.user_id, u.user_first_name , u.user_last_name, u.profile_image_name," \
@@ -237,36 +263,52 @@ class UserService():
     def delete_user_subscription(self, where):
         User_Subscription.objects.filter(**where).delete()
 
-
-
-    ######## User clinic availibility ################
-
     def update_user_clinic_availibiliy(self, data, where):
         obj, created = User_Clinic_Availibility.objects.update_or_create(
             user_id=where['user_id'],day=where['day'],
             defaults=data,
         )
 
+    @staticmethod
+    def get_user_all_info(user_id):
+        user_obj = User.objects.filter(user_id=user_id).prefetch_related().first()
+        user_data = {'user_id': user_id}
 
-    ######## Search #############
-    def get_user_all_info(self, user_id):
-        query = "select u.user_id, u.user_first_name , u.user_last_name,  u.profile_image_name," \
-                " (group_concat(DISTINCT  q.qualification)) as qualification, " \
-                " group_concat(DISTINCT s.specialization) as specialization, " \
-                " up.total_experience, up.about_me, up.consultation_fees, " \
-                " ua.title,ua.address_1,ua.address_2,ua.pincode, ua.city, ua.state " \
-                " from mrds_v1.user u " \
-                " left join mrds_v1.user_address ua on ua.user_id = u.user_id" \
-                " left join mrds_v1.user_profile up on up.user_id = u.user_id" \
-                " left join user_specialization us on u.user_id = us.user_id" \
-                " left join specialization s on s.specialization_id = us.specialization_id" \
-                " left join user_qualification uq on u.user_id = uq.user_id" \
-                " left join qualification q on q.qualification_id = uq.qualification_id" \
-                " where  u.user_id = {0} " .format(user_id)
+        if user_obj:
+            # User Data
+            user_data['user_first_name'] = user_obj.user_first_name
+            user_data['user_last_name'] = user_obj.user_last_name
+            user_data['profile_image_name'] = user_obj.profile_image_name
 
-        print(query)
-        result = User.objects.raw(query)
-        return result[0]
+            # User Qualification Data
+            qualification_queryset = user_obj.user_qualification.first()
+            if qualification_queryset:
+                user_data['qualification'] = qualification_queryset.qualification
+
+            # User Specialization Data
+            specialization_queryset = user_obj.user_specialization.values_list('specialization_id', flat=True)
+            if specialization_queryset:
+                specializations = Specialization.objects.filter(specialization_id__in=specialization_queryset).values_list('specialization', flat=True)
+                user_data['specialization'] = ', '.join(specializations)
+
+            # User Profile Data
+            user_profile_queryset = user_obj.user_profile_set.first()
+            if user_profile_queryset:
+                user_data['total_experience'] = user_profile_queryset.total_experience
+                user_data['about_me'] = user_profile_queryset.about_me
+                user_data['consultation_fees'] = user_profile_queryset.consultation_fees
+
+            # User Address Data
+            user_address_queryset = user_obj.user_address_set.first()
+            if user_address_queryset:
+                user_data['title'] = user_address_queryset.title
+                user_data['address_1'] = user_address_queryset.address_1
+                user_data['address_2'] = user_address_queryset.address_2
+                user_data['pincode'] = user_address_queryset.pincode
+                user_data['city'] = user_address_queryset.city
+                user_data['state'] = user_address_queryset.state
+
+        return user_data
 
     @staticmethod
     def time_slots(start, end, duration):
