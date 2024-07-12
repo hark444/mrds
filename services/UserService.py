@@ -353,11 +353,11 @@ class UserService():
             return False
 
     def get_booked_slot(self, user_id, field=[]):
-        result = UserAppointment.objects.filter(Q(is_active = 1), Q(user_id = user_id),
+        result = UserAppointment.objects.filter(Q(is_active=1), Q(user_id=user_id),
                                                 Q(appointment_status=2)
                                                 | Q(appointment_status=4)
                                                 | Q(appointment_status=5)
-                                                | Q(appointment_status=6), )
+                                                | Q(appointment_status=6),)
         print(result.query)
         print(result)
         if field:
