@@ -1,7 +1,8 @@
-django==3.2
+django==4.2
 djangorestframework
 django-cors-headers
 django-extensions
 python-dateutil
 Pillow
 requests
+psycopg2==2.9.9

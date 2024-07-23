@@ -11,7 +11,7 @@ class ReferService():
 
     def generate_referral_code(self):
         alphabet = string.ascii_letters + string.digits
-        code = ''.join(secrets.choice(alphabet) for i in range(10))
+        code = ''.join(secrets.choice(alphabet) for i in range(8))
         return code.upper()
 
     def sendEmailRefer(self, to, patient_name, referred_by, link, is_existing_user):
@@ -45,10 +45,11 @@ class ReferService():
         except Refer_Patient.DoesNotExist:
             return False
 
-
-    def add_refer(self, data={}):
-        Obj = Refer_Patient(**data)
-        Obj.save()
+    @staticmethod
+    def add_refer(data={}):
+        refer_pat_obj = Refer_Patient(**data)
+        refer_pat_obj.save()
+        # TODO: Not a safe way
         return Refer_Patient.objects.last().refer_patient_id
 
     def update_refer(self, data, where):

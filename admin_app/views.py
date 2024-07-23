@@ -105,12 +105,12 @@ def referralView(request):
     user_data = request.session.get('loggedin_user', {})
     #where = {'referred_to': user_data['id']}
     where = {}
+    # TODO: Apply pagination here
     refers = Refer.get_all_refers(where)
-    print(refers)
     refer_list = []
 
     for refer in refers:
-        refer_data = {}
+        refer_data = dict()
         refer_data['refer'] = refer
         user_to = User.get_user({'user_id': refer.referred_to})
         user_by = User.get_user({'user_id': refer.referred_by})
@@ -124,7 +124,8 @@ def referralView(request):
             refer_data['user_action'] = "Refer"
             refer_data['user_id'] = user.user_id
         refer_list.append(refer_data)
-    return render(request,"admin_app/referrals.html", {'user_data':user_data, 'refers':refers, 'refer_list': refer_list})
+    return render(request, "admin_app/referrals.html",
+                  {'user_data': user_data, 'refers': refers, 'refer_list': refer_list})
 
 @loggedin
 def couponsView(request):

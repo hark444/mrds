@@ -15,3 +15,24 @@
 1. Fix errors in appointment booking step.
 2. Camel Casing of Model Names and refactoring.
 3. Fix the migrations and combine into a single file.
+
+[MRDS-0013]
+1. Fix: Refer patient link not working.
+2. Fix: Profile upload is not working. It is saving to a non-existent directory
+3. MEDIA URL was not defined in settings.py. Hence pictures were not loading.
+
+
+[BUGS]
+1. Clicking on Explore more links, fake logs out the user. Session is lost.
+2. The password is stored as a string. Major risk!
+3. Edit button not working on admin page
+4. Doctor details in GET request.
+5. Refer patient link not working.
+6. Alert if account with unique identifiers not present
+7. Local session not expiring on admin page.
+
+
+
+[QUESTIONS]
+1. How to book appointments?
+2. How about qualifications/specializations, etc

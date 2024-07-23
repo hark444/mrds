@@ -1,5 +1,6 @@
-    $(document).ready(function(){
-
+var referred_appointment;
+var referred_patient;
+$(document).ready(function(){
     $("#login").click(function() {
             $('#error_msg').html("").hide()
             var username = $('#username').val();
@@ -123,6 +124,44 @@
       globalSearchExcludeColumns: [2,5] // exclude column 2 & 5
     });
 
+    $('.Refer').click(function(){
+        $('#ReferDrScreen').css("display", "block")
+        $('.close').click(function(){
+            $('#ReferDrScreen').css("display", "none")
+        })
+
+        this_id = $(this).attr('id')
+        this_list = this_id.split("_")
+        action = this_list[0]
+        referred_patient = this_list[1]
+
+
+        $("#search_doctor_to_refer").click(function(){
+            search_city = $("#search_city").val()
+            search_keyword = $("#search_keyword").val()
+            data = {}
+            data['search_city'] = search_city
+            data['search_keyword'] = search_keyword
+
+             $.ajax({
+             url: '/ajax/search-dr',
+             data: data,
+             dataType: 'json',
+             method: 'post',
+
+            success: function (data) {
+              console.log(data)
+                $("#dr_search_result").html(data.search_data)
+            }
+      });
+    })
+
+
+    })
+
+
+
+
     })
 
 
@@ -152,6 +191,26 @@ function coupon_act(id, val) {
             if (data.resp === 'redirect') {
                 window.location.href = "";
             }
+        }
+    });
+}
+
+function dr_refer_patient(referred_dr_id){
+    data["action"] = 'dr-refer'
+    data["appointment_id"] = 0
+    data["patient_id"] = referred_patient
+    data["referred_to_dr_id"] = referred_dr_id
+    data["refer_notes"] = $('#refer_notes_'+referred_dr_id).val()
+    console.log(data)
+    $.ajax({
+         url: '/ajax/update-appointment',
+         data: data,
+         dataType: 'json',
+         method: 'post',
+
+        success: function (data) {
+             window.location=""
+            //console.log(data)
         }
     });
 }

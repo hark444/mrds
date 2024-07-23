@@ -1539,6 +1539,8 @@ body .ti__d-flex-dc {
   background-size: 90%;
   background-repeat: no-repeat;
   background-color: #E7FFFF;
+  overflow-y: scroll;
+    max-height: -webkit-fill-available;
 }
 .myr__overlay-body {
   width: 26rem;

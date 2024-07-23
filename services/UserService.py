@@ -23,9 +23,11 @@ class UserService():
         except User.DoesNotExist:
             return False
 
-    def add_user(self, data={}):
-        Obj = User(**data)
-        Obj.save()
+    @staticmethod
+    def add_user(data={}):
+        user_obj = User(**data)
+        user_obj.save()
+        # TODO: Not a safe method of returning the newly created user id.
         return User.objects.last().user_id
 
     def update_user(self, data, where):
@@ -37,13 +39,9 @@ class UserService():
     def delete_user(self, where):
         UserAddress.objects.filter(**where).update(is_active=0)
 
-
-    ######## Profile ##########
-
     def get_user_profile(self, where):
         try:
             user = UserProfile.objects.get(**where)
-
             if user:
                 return user
             else:
@@ -353,11 +351,11 @@ class UserService():
             return False
 
     def get_booked_slot(self, user_id, field=[]):
-        result = UserAppointment.objects.filter(Q(is_active = 1), Q(user_id = user_id),
+        result = UserAppointment.objects.filter(Q(is_active=1), Q(user_id=user_id),
                                                 Q(appointment_status=2)
                                                 | Q(appointment_status=4)
                                                 | Q(appointment_status=5)
-                                                | Q(appointment_status=6), )
+                                                | Q(appointment_status=6),)
         print(result.query)
         print(result)
         if field:
@@ -410,8 +408,8 @@ class UserService():
 
 # User payment
     def set_dr_patient_refer(self, data):
-        Obj = UserPatientRefer(**data)
-        Obj.save()
+        user_patient_object = UserPatientRefer(**data)
+        user_patient_object.save()
         #return Obj.objects.last().user_patient_refer_id
 
     def get_dr_patient_refer(self, where={"is_active": 1}, field=[]):

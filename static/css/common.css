@@ -4,6 +4,25 @@
     display:none;
     padding: 10px;
     margin: 10px 0px;
+    border: 1px solid #D8000C;
+}
+
+
+.success_msg{
+    color: #02393e;
+    background-color: #b7f5f5;
+    display:none;
+    padding: 10px;
+    margin: 10px 0px;
+    border: 1px solid #02393e;
+}
+
+.info{
+    color: #D8000C;
+    background-color: #FFBABA;
+    display:none;
+    padding: 10px;
+    margin: 10px 0px;
 }
 
 .myr__form-radio label {

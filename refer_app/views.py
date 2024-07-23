@@ -83,18 +83,20 @@ def ajaxLogin(request):
     request.session['loggedin_user'] = userdata
     #return redirect('home')
     return JsonResponse({'resp': 'redirect', 'status': 'success'})
-@loggedin
+
 @csrf_exempt
+@loggedin
 def ajaxRefer(request):
     user_data = request.session.get('loggedin_user', {})
-    referral_code = "DR"+Refer.generate_referral_code()
+    referral_code = "DR" + Refer.generate_referral_code()
     req = request.POST
 
-    user = User.get_user({'user_email': req.get('email'), 'user_type_id': 1, 'is_active': 1})
+    user_search = {'user_email': req.get('email'), 'user_type_id': 1, 'is_active': True}
+    user = User.get_user(user_search)
     if user:
         user_id = user.user_id
     else:
-        data = {}
+        data = dict()
         data['user_first_name'] = req.get('first_name')
         data['user_last_name'] = req.get('last_name')
         data['user_email'] = req.get('email')
@@ -105,7 +107,7 @@ def ajaxRefer(request):
         data['referral_code'] = referral_code
         user_id = User.add_user(data)
 
-    data = {}
+    data = dict()
     data['user_appointment_id'] = 0
     data['patient_id'] = user_id
     data['user_from'] = user_data['id']
@@ -113,7 +115,7 @@ def ajaxRefer(request):
     data['refer_notes'] = "Diagnosis: "+req.get('diagnosis', '')+"<br>"+"Treatment: "+req.get('treatment', '')+"<br>"
     User.set_dr_patient_refer(data)
 
-    data = {}
+    data = dict()
     data['first_name'] = req.get('first_name')
     data['last_name'] = req.get('last_name')
     data['mobile_number'] = req.get('mobile_number')

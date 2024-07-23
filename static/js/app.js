@@ -598,7 +598,7 @@ function validatePassword(password) {
         data["appointment_id"] = referred_appointment
         data["patient_id"] = referred_patient
         data["referred_to_dr_id"] = referred_dr_id
-        data["refer_notes"] = $('#refer_notes').val()
+        data["refer_notes"] = $('#refer_notes_'+referred_dr_id).val()
         console.log(data)
         $.ajax({
              url: '/ajax/update-appointment',
@@ -613,3 +613,100 @@ function validatePassword(password) {
         });
     }
 
+    var user_type;
+    var email;
+
+
+    $("#reset_password_button").click(function () {
+        var new_password = $("#new_password").val();
+        var confirm_password = $("#confirm_password").val()
+        var csrfToken = $("input[name='csrfmiddlewaretoken']").val(); // Get the CSRF token
+        $(".error").text("").css("display", 'none');
+        $(".success_msg").text("").css("display", 'none');
+
+        if (new_password != '' && confirm_password != '') {
+            if (new_password == confirm_password) {
+                $.ajax({
+                    url: '/reset-password',
+                    data: {
+                            'csrfToken': csrfToken,
+                            'new_password': new_password,
+                            'confirm_password': confirm_password,
+                        },
+                    dataType: 'json',
+                    method: 'post',
+                    success: function (data) {
+                        if (data.success) {
+                            $('#new-password-form').remove()
+                            $(".success_msg").text("Password has been reset successfully!").css("display", 'block');
+                        } else {
+                            $(".error").text("Error resetting password.").css("display", 'block');
+                        }
+                    }
+                });
+                }
+                else {
+                $(".error").text("New and confirm password are not same.").css("display", 'block');
+                }
+            }
+            else {
+                $(".error").text("Please enter mandatory(*) fields").css("display", 'block');
+            }
+    });
+
+
+
+
+    $("#forgot_password").click(function () {
+        var user_type = $("input[name='user_type']:checked").val();
+        var user_email = $('#signin_email').val();
+        $(".error").text("").css("display", 'none');
+        if(user_type!='' &&  user_email!='')
+        {
+            $.ajax({
+                url: '/forgot-password',
+                data: {
+                    'user_type': user_type,
+                    'user_email': user_email,
+                    'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()
+                },
+                dataType: 'json',
+                method: 'post',
+                success: function (data) {
+                if (data.success) {
+                    $("#signin_email").attr('disabled', 'disabled')
+                    $("input[name='user_type']").attr('disabled', 'disabled')
+
+                    $("#otp_box").show();
+                    $("#forgot_password").hide();
+                    $("#validate_otp").show();
+                } else {
+                    $(".error").text("This email is not registered with us!").css("display", 'block');
+                }
+               }
+
+            });
+
+        }
+        else {
+            $(".error").text("Please enter mandatory fields!").css("display", 'block');
+        }
+     })
+
+    $("#validate_otp").click(function () {
+            $(".error").text("").css("display", 'none');
+            var entered_otp = $("#entered_otp").val();
+            $.ajax({
+                    url: '/validate-otp',
+                    data: {'entered_otp': entered_otp},
+                    dataType: 'json',
+                    method: 'post',
+                    success: function (data) {
+            if (data.success) {
+                window.location.href = '/reset-password';
+            } else {
+                $(".error").text("Entered OTP is wrong, please try again!").css("display", 'block');
+            }
+        }
+    });
+});
