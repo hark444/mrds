@@ -58,6 +58,8 @@
 .myr__overlay-wrapper {
     width: 40%;
     margin: 3% auto;
+    overflow-y: scroll;
+    max-height: -webkit-fill-available;
 }
 
 .myr__overlay-body{

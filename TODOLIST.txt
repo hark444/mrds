@@ -18,6 +18,8 @@
 
 [MRDS-0013]
 1. Fix: Refer patient link not working.
+2. Fix: Profile upload is not working. It is saving to a non-existent directory
+3. MEDIA URL was not defined in settings.py. Hence pictures were not loading.
 
 
 [BUGS]

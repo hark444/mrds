@@ -246,41 +246,30 @@ def showAppointmentAjax(request):
         'header':ca_header, 'time_slot':ca_slot, 'user_id':user_id}})
     return JsonResponse(html, safe=False)
 
+
 @csrf_exempt
 @loggedin
-def profileEditView(request):
+def profile_edit_view(request):
     user_data = request.session.get('loggedin_user', {})
-    print(user_data)
     if request.method == 'POST':
-        print("I am here 1")
-        #form =ProfileImageForm(request.POST, request.FILES)
-        print(request.FILES)
-
         f = request.FILES['profile_Main_Img']
-        print(f)
-        #uploaded_path = 'templates/static/profiles/'
-        uploaded_path = settings.MEDIA_ROOT + '/profiles/'
-        print(uploaded_path)
-        uploaded_file_name = str(request.session['loggedin_user']['id'])+ '.' +f.name.split('.')[1]
+        uploaded_path = settings.MEDIA_ROOT + '\\profiles\\'
+        uploaded_file_name = str(request.session['loggedin_user']['id']) + '.' + f.name.split('.')[1]
 
-
-        with open( uploaded_path+uploaded_file_name , 'wb+') as destination:
-
+        with open(uploaded_path+uploaded_file_name, 'wb+') as destination:
             for chunk in f.chunks():
                 destination.write(chunk)
 
-        user_image = {}
+        user_image = dict()
         user_image['profile_image_name'] = uploaded_file_name
         where = {'user_id': request.session['loggedin_user']['id']}
         User.update_user(user_image, where)
 
-
-    where_user = {'user_id': user_data['id'], "is_active": 1}
-    where_user_type = where = {'user_type_id': user_data['user_type'], "is_active": 1}
+    where_user = {'user_id': user_data['id'], "is_active": True}
+    where_user_type = {'user_type_id': user_data['user_type'], "is_active": True}
 
     subscription = User.get_subscription(where_user_type, field=['subscription_id', 'subscription_name', 'cost'])
     user = User.get_user(where_user)
-
 
     address = User.get_user_address({'user_id': user_data['id']})
     user_subscription = User.get_user_subscription(where=where_user,
@@ -290,7 +279,6 @@ def profileEditView(request):
     qualification = {}
     user_specialization = {}
     user_qualification = {}
-    profile = {}
     profile = User.get_user_profile({'user_id': user_data['id']})
     if user_data['user_type'] in [2, 3, '2', '3']:
 
@@ -308,9 +296,10 @@ def profileEditView(request):
             'user_specialization': user_specialization, 'user_qualification': user_qualification,
             'user_subscription': user_subscription}
 
-    days = ('monday', 'tuesday','wednesday','thursday','friday','saturday','sunday')
+    days = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')
     duration = range(1, 61)
-    return render(request, "web_app/profile-edit.html", {'user_data': user_data, 'data': data, 'days':days, 'duration':duration})
+    return render(request, "web_app/profile-edit.html",
+                  {'user_data': user_data, 'data': data, 'days': days, 'duration': duration})
     # return render(request, "web_app/profile-page.html", {})
 
 @csrf_exempt
