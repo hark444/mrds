@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'mrds_v1',
         'USER': 'postgres',
         'PASSWORD': 'ms',
-        'HOST': 'localhost',
+        'HOST': 'mrdsv1.cpu2ck2283sh.eu-north-1.rds.amazonaws.com',
         'PORT': 5432
     }
 }
