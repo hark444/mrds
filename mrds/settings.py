@@ -93,7 +93,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mrds_v1',
         'USER': 'postgres',
-        'PASSWORD': 'ms',
+        # 'PASSWORD': 'ms',
+        'PASSWORD': 'mrds#2024',
         'HOST': 'mrdsv1.cpu2ck2283sh.eu-north-1.rds.amazonaws.com',
         'PORT': 5432
     }
