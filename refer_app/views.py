@@ -86,7 +86,7 @@ def ajaxLogin(request):
 
 @csrf_exempt
 @loggedin
-def ajaxRefer(request):
+def ajax_refer(request):
     user_data = request.session.get('loggedin_user', {})
     referral_code = "DR" + Refer.generate_referral_code()
     req = request.POST
@@ -125,7 +125,8 @@ def ajaxRefer(request):
     data['treatment'] = req.get('treatment')
     data['is_active'] = 1
     data['referred_by'] = user_data['id']
-    data['referred_to'] = 1
+    # TODO: This is assuming that admin user id is 1/2.
+    data['referred_to'] = 2
     data['referral_code'] = referral_code
     data['status'] = 1
 

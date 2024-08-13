@@ -118,7 +118,7 @@ def is_valid_user_input(username, email, password):
     return True
 
 
-def registerView(request,user_type=None, referral_code=None):
+def register_view(request, user_type=None, referral_code=None):
     print(user_type)
     print(referral_code)
     user_type_id = 1
@@ -325,8 +325,9 @@ def clinicAvailibilityView(request):
     # clinicAvailibity1 = User_Clinic_Availibility.Objects.all()
     # return render(request,"web_app/profile-page.html",{clinicAvailibity1})
 
+
 @csrf_exempt
-def registerUser(request):
+def register_user(request):
     req = request.POST
     data = dict()
     data['user_first_name'] = req.get('first_name')
@@ -386,7 +387,7 @@ def registerUser(request):
 
 
 @csrf_exempt
-def loginUser(request):
+def login_user(request):
     req = request.POST
     data = dict()
 
@@ -407,9 +408,10 @@ def loginUser(request):
     # return redirect('home')
     return JsonResponse({'resp': 'redirect', 'status': 'success'})
 
+
 @csrf_exempt
 @loggedin
-def updateUser(request):
+def update_user(request):
     data = request.POST
     action = data.get('action')
     where = {'user_id': request.session['loggedin_user']['id']}
@@ -486,17 +488,17 @@ def updateUser(request):
         avail_dict = json.loads(data.get('avail'))
         for day, valStr in avail_dict.items():
             user_clinic_availibility['day'] = day
-            valList = valStr.split(",")
-            user_clinic_availibility['start_time'] = valList[0]
-            user_clinic_availibility['end_time'] = valList[1]
-            user_clinic_availibility['duration'] = valList[2]
-            user_clinic_availibility['is_available'] = valList[3]
+            val_list = valStr.split(",")
+            user_clinic_availibility['start_time'] = val_list[0]
+            user_clinic_availibility['end_time'] = val_list[1]
+            user_clinic_availibility['duration'] = val_list[2]
+            user_clinic_availibility['is_available'] = val_list[3]
             where = {'user_id': request.session['loggedin_user']['id'], 'day': day}
             User.update_user_clinic_availibiliy(user_clinic_availibility, where)
 
     return JsonResponse({'resp': data})
 
-# Create your views here.
+
 
 @loggedin
 def profile_image_view(request):
@@ -511,12 +513,12 @@ def profile_image_view(request):
 
 
 # Create your views here.
-def set_appintment_ajax(request):
+def set_appointment_ajax(request):
     if request.method == 'POST':
         data = request.POST
         apt_date_list = data.get('apt_date').split("-")
         apt_date_ymd = apt_date_list[2]+"-"+apt_date_list[1]+"-"+apt_date_list[0]
-        apt_time = data.get('apt_time')+":00"
+        apt_time = data.get('apt_time') + ":00"
         apt_user = data.get('apt_user')
         apt_data = {}
         apt_data['patient_id'] = request.session['loggedin_user']['id']

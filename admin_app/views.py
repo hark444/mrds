@@ -47,7 +47,7 @@ def loginView(request):
     return render(request,"admin_app/login.html", {'user_data': {}})
 
 def registerView(request):
-    return render(request,"admin_app/register.html")
+    return render(request, "admin_app/register.html")
 
 @loggedin
 def dashboardView(request):
@@ -55,21 +55,20 @@ def dashboardView(request):
     return render(request,"admin_app/dashboard.html", {'user_data':user_data})
 
 @loggedin
-def doctordView(request):
+def doctored_view(request):
     user_data = request.session.get('loggedin_user', {})
     where = {'user_type_id': 3}
     users = User.get_all_users(where)
-    usersList = []
-    print(users)
+    users_list = list()
+    # TODO: Use select_related to fetch all related details at once. This list could contain a lot of records. Iterating
+    # again over those may not make sense.
     for user in users:
         refer_count = Refer.get_refer_count({'referred_by': user.user_id})
         user.count = refer_count
-
         address = User.get_user_address({'user_id': user.user_id})
         user.address = address.city if address else ""
-        usersList.append(user)
-    print(usersList)
-    return render(request,"admin_app/doctor.html", {'users': usersList, 'user_data':user_data})
+        users_list.append(user)
+    return render(request, "admin_app/doctor.html", {'users': users_list, 'user_data': user_data})
 
 @loggedin
 def ptView(request):
@@ -100,11 +99,11 @@ def patientView(request):
     print(usersList)
     return render(request,"admin_app/patient.html", {'users': usersList, 'user_data':user_data})
 
+
 @loggedin
-def referralView(request):
+def referral_view(request):
     user_data = request.session.get('loggedin_user', {})
-    #where = {'referred_to': user_data['id']}
-    where = {}
+    where = {'is_active': True}
     # TODO: Apply pagination here
     refers = Refer.get_all_refers(where)
     refer_list = []
@@ -168,11 +167,11 @@ def ajaxLogin(request):
     #return redirect('home')
     return JsonResponse({'resp': 'redirect', 'status': 'success'})
 
+
 @csrf_exempt
-def ajaxRegister(request):
-    print(request.POST)
+def ajax_register(request):
     req = request.POST
-    data = {}
+    data = dict()
     data['user_name'] = req.get('username')
     data['password'] = req.get('password')
     data['user_first_name'] = req.get('first_name')
@@ -183,9 +182,8 @@ def ajaxRegister(request):
 
     user_id = User.add_user(data)
     if not user_id:
-        return JsonResponse({'resp': 'User doesn\'t exist' , 'status': 'failed'})
+        return JsonResponse({'resp': 'User could not be created', 'status': 'failed'})
 
-     #return redirect('home')
     return JsonResponse({'resp': 'redirect', 'status': 'success'})
 
 

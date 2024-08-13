@@ -6,10 +6,11 @@ import datetime as dt
 from django.db.models import Q
 
 
-class UserService():
+class UserService:
 
-    ######## User #############
-    def get_all_users(self, where={}):
+    @staticmethod
+    def get_all_users(where={}):
+        # TODO: Use pagination, if necessary.
         result = User.objects.all().filter(**where)
         print(result.query)
         return result
