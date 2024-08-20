@@ -6,3 +6,4 @@ python-dateutil
 Pillow
 requests
 psycopg2-binary
+gunicorn==23.0.0
