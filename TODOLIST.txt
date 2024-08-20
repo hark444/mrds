@@ -26,6 +26,9 @@
 2. Get only non-deleted refers.
 3. Doctored_view required PEP changes
 
+[MRDS_0015]
+1. Host django app with gunicorn & ngnix on ec2.
+
 
 [BUGS]
 1. Clicking on Explore more links, fake logs out the user. Session is lost.
