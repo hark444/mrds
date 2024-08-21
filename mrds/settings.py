@@ -96,6 +96,7 @@ DATABASES = {
         # 'PASSWORD': 'ms',
         'PASSWORD': 'Mrds#2024',
         'HOST': 'mrdsv1.cpu2ck2283sh.eu-north-1.rds.amazonaws.com',
+        # 'HOST': 'localhost',
         'PORT': 5432
     }
 }

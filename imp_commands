@@ -1,0 +1,12 @@
+- To log from sudo user
+sudo su -
+
+- To run gunicorn deamon
+gunicorn --bind 0.0.0.0:8000 mrds.wsgi --daemon
+
+- To kill gunicorn background process
+ps ax|grep gunicorn
+pkill gunicorn
+
+- To connect to database
+psql -h mrdsv1.cpu2ck2283sh.eu-north-1.rds.amazonaws.com -p 5432 -U postgres mrds_v1

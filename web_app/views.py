@@ -388,14 +388,17 @@ def register_user(request):
 
 @csrf_exempt
 def login_user(request):
+    print("inside login user")
     req = request.POST
     data = dict()
 
     data['user_name'] = req.get('email')
     data['password'] = req.get('password')
     data['user_type_id'] = req.get('user_type')
+    print(f"loginUser: data: {data}")
 
     user = User.get_user(data)
+    print(f"loginUser: user: {user}")
     if not user:
         return JsonResponse({'resp': 'User doesn\'t exist', 'status': 'failed'})
 
@@ -403,6 +406,8 @@ def login_user(request):
                 "first_name": user.user_first_name,
                 "last_name": user.user_last_name,
                 "user_type": user.user_type_id}
+
+    print(f"loginUser: userdata: {userdata}")
 
     request.session['loggedin_user'] = userdata
     # return redirect('home')
