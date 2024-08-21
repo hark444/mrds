@@ -274,7 +274,8 @@ function validatePassword(password) {
             }
             if(data.resp == 'redirect')
             {
-                window.location.href = "/profile";
+                console.log(window.location.href);
+//                window.location.href = "/profile";
             }
 
         }

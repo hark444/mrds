@@ -222,7 +222,6 @@ def doctorProfileView(request, dr_id):
 
 @loggedin
 def profile_view(request):
-
     user_data = request.session.get('loggedin_user', {})
     data = User.get_user_all_info(user_data['id'])
     ca_header, ca_slot = {}, {}
