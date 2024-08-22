@@ -102,6 +102,8 @@ DATABASES = {
     }
 }
 
+SESSION_COOKIE_SAMESITE = False
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -121,8 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SESSION_COOKIE_SECURE = True
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
